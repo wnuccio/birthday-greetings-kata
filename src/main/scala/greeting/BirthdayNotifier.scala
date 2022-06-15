@@ -1,10 +1,9 @@
 package walt.kata
 package greeting
 
-import scala.io.BufferedSource
-
-class BirthdayNotifier(friendsFile: BufferedSource, emailSender: EmailSender) {
+class BirthdayNotifier(friends: Seq[Friend], emailSender: EmailSender) {
   def sendGreetings(): Unit = {
+    emailSender.sendGreetingsTo(friends)
   }
 
 }
