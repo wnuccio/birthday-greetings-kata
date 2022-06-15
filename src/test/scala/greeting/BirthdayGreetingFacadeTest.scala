@@ -2,7 +2,7 @@ package walt.kata
 package greeting
 
 import date.Date
-import email.{EmailAddress, EmailSenderMock}
+import email.{EmailAddress, EmailGatewayMock, EmailSender}
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should
@@ -22,26 +22,28 @@ class BirthdayGreetingFacadeTest extends AnyFlatSpec with should.Matchers {
 
   "The greeting sender " should "send one email to the specified address" in {
     val friends: Seq[Friend] = Seq(Friend("John", Date("2022-06-15"), EmailAddress("john.doe@foobar.com")))
-    val emailSender = new EmailSenderMock()
+    val emailGateway = new EmailGatewayMock()
+    val emailSender = new EmailSender(emailGateway)
     val clock = ClockStub.today(Date("2022-06-15"))
     val birthdayGreetings = new BirthdayGreetingsFacade(friendRepository(friends), emailSender, clock)
 
     birthdayGreetings.sendGreetings()
 
-    emailSender.emails.size shouldBe 1
-    emailSender.emails.head.address shouldBe EmailAddress("john.doe@foobar.com")
+    emailGateway.emails.size shouldBe 1
+    emailGateway.emails.head.address shouldBe EmailAddress("john.doe@foobar.com")
   }
 
   "The greeting sender " should "send one email to the specified friend" in {
     val friends: Seq[Friend] = Seq(Friend("John", Date("2022-06-15"), EmailAddress("john.doe@foobar.com")))
-    val emailSender = new EmailSenderMock()
+    val emailGateway = new EmailGatewayMock()
+    val emailSender = new EmailSender(emailGateway)
     val clock = ClockStub.today(Date("2022-06-15"))
     val birthdayGreetings = new BirthdayGreetingsFacade(friendRepository(friends), emailSender, clock)
 
     birthdayGreetings.sendGreetings()
 
-    emailSender.emails.size shouldBe 1
-    emailSender.emails.head.text shouldBe
+    emailGateway.emails.size shouldBe 1
+    emailGateway.emails.head.text shouldBe
       """
         |Subject: Happy birthday!
         |
@@ -56,14 +58,15 @@ class BirthdayGreetingFacadeTest extends AnyFlatSpec with should.Matchers {
       Friend("Mike", Date("1975-07-15"), EmailAddress("mike.toe@foobar.com")),
       Friend("Roby", Date("1976-06-15"), EmailAddress("roby.foe@foobar.com"))
     )
-    val emailSender = new EmailSenderMock()
+    val emailGateway = new EmailGatewayMock()
+    val emailSender = new EmailSender(emailGateway)
     val clock = ClockStub.today(Date("2022-06-15"))
     val birthdayGreetings = new BirthdayGreetingsFacade(friendRepository(friends), emailSender, clock)
 
     birthdayGreetings.sendGreetings()
 
-    emailSender.emails.size shouldBe 2
-    val mailsSentTo = emailSender.emails.map(_.personName)
+    emailGateway.emails.size shouldBe 2
+    val mailsSentTo = emailGateway.emails.map(_.personName)
     mailsSentTo should contain("Alan")
     mailsSentTo should contain("Roby")
   }
