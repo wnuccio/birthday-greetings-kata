@@ -1,5 +1,5 @@
 package walt.kata
-package greeting
+package email
 
 case class EmailAddress(value: String) {
 

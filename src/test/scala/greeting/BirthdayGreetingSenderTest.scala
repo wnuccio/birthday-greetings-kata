@@ -1,6 +1,8 @@
 package walt.kata
 package greeting
 
+import email.{Email, EmailAddress, EmailSenderMock}
+
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should
 

@@ -1,9 +1,9 @@
 package walt.kata
 package greeting
 
-class BirthdayGreetingsSender(friends: Seq[Friend], emailSender: GreetingsSender) {
+class BirthdayGreetingsSender(friends: Seq[Friend], greetingsSender: GreetingsSender) {
   def sendGreetings(): Unit = {
-    friends.foreach(friend => emailSender.sendGreetingsTo(friend))
+    friends.foreach(friend => greetingsSender.sendGreetingsTo(friend))
   }
 
 }

@@ -1,5 +1,7 @@
 package walt.kata
-package greeting
+package email
+
+import greeting.{Friend, GreetingsSender}
 
 class EmailSender() extends GreetingsSender {
 

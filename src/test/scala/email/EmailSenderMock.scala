@@ -1,5 +1,5 @@
 package walt.kata
-package greeting
+package email
 
 class EmailSenderMock() extends EmailSender {
   var emails: Seq[Email] = Seq.empty

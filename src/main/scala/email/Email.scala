@@ -1,5 +1,5 @@
 package walt.kata
-package greeting
+package email
 
 case class Email(personName: String, address: EmailAddress) {
   private val textTemplate: String =
