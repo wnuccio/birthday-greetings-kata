@@ -2,12 +2,11 @@ package walt.kata
 package greeting
 
 class EmailSenderMock() extends EmailSender {
+  var emails: Seq[Email] = Seq.empty
 
-  override def sendGreetingsTo(friends: Seq[Friend]): Unit = {
-    friends
-      .map(friend => Email(friend.firstName, friend.emailAddress))
-      .foreach(email => emails = emails :+ email)
+  override def sendGreetingsTo(friend: Friend): Unit = {
+    val email = Email(friend.firstName, friend.emailAddress)
+    emails = emails :+ email
   }
 
-  var emails: Seq[Email] = Seq.empty
 }

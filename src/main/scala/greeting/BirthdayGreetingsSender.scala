@@ -3,7 +3,7 @@ package greeting
 
 class BirthdayGreetingsSender(friends: Seq[Friend], emailSender: EmailSender) {
   def sendGreetings(): Unit = {
-    emailSender.sendGreetingsTo(friends)
+    friends.foreach(friend => emailSender.sendGreetingsTo(friend))
   }
 
 }
