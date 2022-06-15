@@ -52,14 +52,19 @@ class BirthdayGreetingSenderTest extends AnyFlatSpec with should.Matchers {
   }
 
   "The greeting sender " should "send no email if today is not a birthday" in {
-    val friends: Seq[Friend] = Seq(Friend("John", date("1975-09-07"), EmailAddress("john.doe@foobar.com")))
+    val friends: Seq[Friend] = Seq(
+      Friend("John", date("1975-06-14"), EmailAddress("john.doe@foobar.com")),
+      Friend("Alan", date("1975-06-15"), EmailAddress("alan.foe@foobar.com")),
+      Friend("Mike", date("1975-07-15"), EmailAddress("mike.toe@foobar.com"))
+    )
     val emailSender = new EmailSenderMock()
     val clock = ClockStub.today(date("2022-06-15"))
     val birthdayGreetingsSender = new BirthdayGreetingsSender(friends, emailSender, clock)
 
     birthdayGreetingsSender.sendGreetings()
 
-    emailSender.emails shouldBe empty
+    emailSender.emails.size shouldBe 1
+    emailSender.emails.head.personName shouldBe "Alan"
   }
 
 
