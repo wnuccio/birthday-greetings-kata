@@ -6,6 +6,9 @@ import email.{EmailAddress, EmailSenderMock}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should
 
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+
 /***
  * Test case list:
  * - one friend -> no greeting if today is not her birthday
@@ -20,9 +23,11 @@ import org.scalatest.matchers.should
 class BirthdayGreetingSenderTest extends AnyFlatSpec with should.Matchers {
 
   "The greeting sender " should "send one email to the specified address" in {
-    val friends: Seq[Friend] = Seq(Friend("John", EmailAddress("john.doe@foobar.com")))
+    val birthdate = parseDate("2022-06-15")
+    val friends: Seq[Friend] = Seq(Friend("John", EmailAddress("john.doe@foobar.com"), birthdate))
     val emailSender = new EmailSenderMock()
-    val birthdayGreetingsSender = new BirthdayGreetingsSender(friends, emailSender)
+    val clock = new ClockStub(birthdate)
+    val birthdayGreetingsSender = new BirthdayGreetingsSender(friends, emailSender, clock)
 
     birthdayGreetingsSender.sendGreetings()
 
@@ -31,9 +36,11 @@ class BirthdayGreetingSenderTest extends AnyFlatSpec with should.Matchers {
   }
 
   "The greeting sender " should "send one email to the specified friend" in {
-    val friends: Seq[Friend] = Seq(Friend("John", EmailAddress("john.doe@foobar.com")))
+    val birthdate = parseDate("2022-06-15")
+    val friends: Seq[Friend] = Seq(Friend("John", EmailAddress("john.doe@foobar.com"), birthdate))
     val emailSender = new EmailSenderMock()
-    val birthdayGreetingsSender = new BirthdayGreetingsSender(friends, emailSender)
+    val clock = new ClockStub(parseDate("2022-06-15"))
+    val birthdayGreetingsSender = new BirthdayGreetingsSender(friends, emailSender, clock)
 
     birthdayGreetingsSender.sendGreetings()
 
@@ -46,5 +53,21 @@ class BirthdayGreetingSenderTest extends AnyFlatSpec with should.Matchers {
         |""".stripMargin
   }
 
+  "The greeting sender " should "send no email if today is not a birthday" in {
+    val birthdate = parseDate("1975-09-07")
+    val friend = Friend("John", EmailAddress("john.doe@foobar.com"), birthdate)
+    val clock = new ClockStub(parseDate("2022-06-15"))
+    val friends: Seq[Friend] = Seq(friend)
+    val emailSender = new EmailSenderMock()
+    val birthdayGreetingsSender = new BirthdayGreetingsSender(friends, emailSender, clock)
 
+    birthdayGreetingsSender.sendGreetings()
+
+    emailSender.emails shouldBe empty
+  }
+
+
+  private def parseDate(dateString: String): LocalDate = {
+    LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+  }
 }
