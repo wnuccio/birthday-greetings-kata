@@ -1,13 +1,11 @@
 package walt.kata
 package greeting
 
+import date.Date
 import email.{EmailAddress, EmailSenderMock}
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should
-
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 /***
  * Test case list:
@@ -23,9 +21,9 @@ import java.time.format.DateTimeFormatter
 class BirthdayGreetingFacadeTest extends AnyFlatSpec with should.Matchers {
 
   "The greeting sender " should "send one email to the specified address" in {
-    val friends: Seq[Friend] = Seq(Friend("John", date("2022-06-15"), EmailAddress("john.doe@foobar.com")))
+    val friends: Seq[Friend] = Seq(Friend("John", Date("2022-06-15"), EmailAddress("john.doe@foobar.com")))
     val emailSender = new EmailSenderMock()
-    val clock = ClockStub.today(date("2022-06-15"))
+    val clock = ClockStub.today(Date("2022-06-15"))
     val birthdayGreetings = new BirthdayGreetingsFacade(friendRepository(friends), emailSender, clock)
 
     birthdayGreetings.sendGreetings()
@@ -35,9 +33,9 @@ class BirthdayGreetingFacadeTest extends AnyFlatSpec with should.Matchers {
   }
 
   "The greeting sender " should "send one email to the specified friend" in {
-    val friends: Seq[Friend] = Seq(Friend("John", date("2022-06-15"), EmailAddress("john.doe@foobar.com")))
+    val friends: Seq[Friend] = Seq(Friend("John", Date("2022-06-15"), EmailAddress("john.doe@foobar.com")))
     val emailSender = new EmailSenderMock()
-    val clock = ClockStub.today(date("2022-06-15"))
+    val clock = ClockStub.today(Date("2022-06-15"))
     val birthdayGreetings = new BirthdayGreetingsFacade(friendRepository(friends), emailSender, clock)
 
     birthdayGreetings.sendGreetings()
@@ -53,13 +51,13 @@ class BirthdayGreetingFacadeTest extends AnyFlatSpec with should.Matchers {
 
   "The greeting sender " should "send no email if today is not a birthday" in {
     val friends: Seq[Friend] = Seq(
-      Friend("John", date("1975-06-14"), EmailAddress("john.doe@foobar.com")),
-      Friend("Alan", date("1975-06-15"), EmailAddress("alan.foe@foobar.com")),
-      Friend("Mike", date("1975-07-15"), EmailAddress("mike.toe@foobar.com")),
-      Friend("Roby", date("1976-06-15"), EmailAddress("roby.foe@foobar.com"))
+      Friend("John", Date("1975-06-14"), EmailAddress("john.doe@foobar.com")),
+      Friend("Alan", Date("1975-06-15"), EmailAddress("alan.foe@foobar.com")),
+      Friend("Mike", Date("1975-07-15"), EmailAddress("mike.toe@foobar.com")),
+      Friend("Roby", Date("1976-06-15"), EmailAddress("roby.foe@foobar.com"))
     )
     val emailSender = new EmailSenderMock()
-    val clock = ClockStub.today(date("2022-06-15"))
+    val clock = ClockStub.today(Date("2022-06-15"))
     val birthdayGreetings = new BirthdayGreetingsFacade(friendRepository(friends), emailSender, clock)
 
     birthdayGreetings.sendGreetings()
@@ -74,7 +72,4 @@ class BirthdayGreetingFacadeTest extends AnyFlatSpec with should.Matchers {
       override def allFriends: Seq[Friend] = friendList
     }
 
-  private def date(dateString: String): LocalDate = {
-    LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-  }
 }
