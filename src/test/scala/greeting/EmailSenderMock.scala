@@ -1,12 +1,8 @@
 package walt.kata
 package greeting
 
-class EmailSenderMock() extends EmailSender {
+class EmailSenderMock() extends EmailSenderReal {
   var emails: Seq[Email] = Seq.empty
 
-  override def sendGreetingsTo(friend: Friend): Unit = {
-    val email = Email(friend.firstName, friend.emailAddress)
-    emails = emails :+ email
-  }
-
+  override protected def sendEmail(email: Email): Unit = emails = emails :+ email
 }
