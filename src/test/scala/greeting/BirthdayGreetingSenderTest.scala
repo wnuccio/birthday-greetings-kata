@@ -15,26 +15,26 @@ import org.scalatest.matchers.should
  * - one friend -> one greeting with verification of the message
  */
 
-class BirthdayNotifierTest extends AnyFlatSpec with should.Matchers {
+class BirthdayGreetingSenderTest extends AnyFlatSpec with should.Matchers {
 
-  "The BirthdayNotifier " should "send one greeting to the specified address" in {
+  "The greeting sender " should "send one greeting to the specified address" in {
     val friends: Seq[Friend] = Seq(Friend("John", EmailAddress("john.doe@foobar.com")))
     val emailSender = new EmailSenderMock()
-    val birthdayNotifier = new BirthdayNotifier(friends, emailSender)
+    val birthdayGreetingsSender = new BirthdayGreetingsSender(friends, emailSender)
 
-    birthdayNotifier.sendGreetings()
+    birthdayGreetingsSender.sendGreetings()
 
     emailSender.emails.size shouldBe 1
     val email: Email = emailSender.emails.head
     email.address shouldBe EmailAddress("john.doe@foobar.com")
   }
 
-  "The BirthdayNotifier " should "send one greeting to the specified friend" in {
+  "The greeting sender " should "send one greeting to the specified friend" in {
     val friends: Seq[Friend] = Seq(Friend("John", EmailAddress("john.doe@foobar.com")))
     val emailSender = new EmailSenderMock()
-    val birthdayNotifier = new BirthdayNotifier(friends, emailSender)
+    val birthdayGreetingsSender = new BirthdayGreetingsSender(friends, emailSender)
 
-    birthdayNotifier.sendGreetings()
+    birthdayGreetingsSender.sendGreetings()
 
     emailSender.emails.size shouldBe 1
     val email: Email = emailSender.emails.head
