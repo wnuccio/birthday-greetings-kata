@@ -55,7 +55,8 @@ class BirthdayGreetingFacadeTest extends AnyFlatSpec with should.Matchers {
     val friends: Seq[Friend] = Seq(
       Friend("John", date("1975-06-14"), EmailAddress("john.doe@foobar.com")),
       Friend("Alan", date("1975-06-15"), EmailAddress("alan.foe@foobar.com")),
-      Friend("Mike", date("1975-07-15"), EmailAddress("mike.toe@foobar.com"))
+      Friend("Mike", date("1975-07-15"), EmailAddress("mike.toe@foobar.com")),
+      Friend("Roby", date("1976-06-15"), EmailAddress("roby.foe@foobar.com"))
     )
     val emailSender = new EmailSenderMock()
     val clock = ClockStub.today(date("2022-06-15"))
@@ -63,8 +64,10 @@ class BirthdayGreetingFacadeTest extends AnyFlatSpec with should.Matchers {
 
     birthdayGreetings.sendGreetings()
 
-    emailSender.emails.size shouldBe 1
-    emailSender.emails.head.personName shouldBe "Alan"
+    emailSender.emails.size shouldBe 2
+    val mailsSentTo = emailSender.emails.map(_.personName)
+    mailsSentTo should contain("Alan")
+    mailsSentTo should contain("Roby")
   }
 
   private def friendRepository(friendList: Seq[Friend]): FriendRepository = new FriendRepository {
