@@ -1,7 +1,7 @@
 package walt.kata
 package greeting
 
-import email.{Email, EmailAddress, EmailSenderMock}
+import email.{EmailAddress, EmailSenderMock}
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should
@@ -19,7 +19,7 @@ import org.scalatest.matchers.should
 
 class BirthdayGreetingSenderTest extends AnyFlatSpec with should.Matchers {
 
-  "The greeting sender " should "send one greeting to the specified address" in {
+  "The greeting sender " should "send one email to the specified address" in {
     val friends: Seq[Friend] = Seq(Friend("John", EmailAddress("john.doe@foobar.com")))
     val emailSender = new EmailSenderMock()
     val birthdayGreetingsSender = new BirthdayGreetingsSender(friends, emailSender)
@@ -27,11 +27,10 @@ class BirthdayGreetingSenderTest extends AnyFlatSpec with should.Matchers {
     birthdayGreetingsSender.sendGreetings()
 
     emailSender.emails.size shouldBe 1
-    val email: Email = emailSender.emails.head
-    email.address shouldBe EmailAddress("john.doe@foobar.com")
+    emailSender.emails.head.address shouldBe EmailAddress("john.doe@foobar.com")
   }
 
-  "The greeting sender " should "send one greeting to the specified friend" in {
+  "The greeting sender " should "send one email to the specified friend" in {
     val friends: Seq[Friend] = Seq(Friend("John", EmailAddress("john.doe@foobar.com")))
     val emailSender = new EmailSenderMock()
     val birthdayGreetingsSender = new BirthdayGreetingsSender(friends, emailSender)
@@ -39,8 +38,7 @@ class BirthdayGreetingSenderTest extends AnyFlatSpec with should.Matchers {
     birthdayGreetingsSender.sendGreetings()
 
     emailSender.emails.size shouldBe 1
-    val email: Email = emailSender.emails.head
-    email.text shouldBe
+    emailSender.emails.head.text shouldBe
       """
         |Subject: Happy birthday!
         |
