@@ -11,13 +11,13 @@ import java.time.format.DateTimeFormatter
 
 /***
  * Test case list:
- * - one friend -> no greeting if today is not her birthday
- * - two friend -> one greeting since it is the birthday of the first one
  *
  * Done
  * - one friend -> one greeeting
  * - one friend -> one greeting with verification of the email address
  * - one friend -> one greeting with verification of the message
+ * - one friend -> no greeting if today is not her birthday
+ * - two friend -> one greeting since it is the birthday of the first one
  */
 
 class BirthdayGreetingSenderTest extends AnyFlatSpec with should.Matchers {
