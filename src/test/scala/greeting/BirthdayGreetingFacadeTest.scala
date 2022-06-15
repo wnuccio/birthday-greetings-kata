@@ -20,15 +20,15 @@ import java.time.format.DateTimeFormatter
  * - two friend -> one greeting since it is the birthday of the first one
  */
 
-class BirthdayGreetingSenderTest extends AnyFlatSpec with should.Matchers {
+class BirthdayGreetingFacadeTest extends AnyFlatSpec with should.Matchers {
 
   "The greeting sender " should "send one email to the specified address" in {
     val friends: Seq[Friend] = Seq(Friend("John", date("2022-06-15"), EmailAddress("john.doe@foobar.com")))
     val emailSender = new EmailSenderMock()
     val clock = ClockStub.today(date("2022-06-15"))
-    val birthdayGreetingsSender = new BirthdayGreetingsSender(friends, emailSender, clock)
+    val birthdayGreetings = new BirthdayGreetingsFacade(friends, emailSender, clock)
 
-    birthdayGreetingsSender.sendGreetings()
+    birthdayGreetings.sendGreetings()
 
     emailSender.emails.size shouldBe 1
     emailSender.emails.head.address shouldBe EmailAddress("john.doe@foobar.com")
@@ -38,9 +38,9 @@ class BirthdayGreetingSenderTest extends AnyFlatSpec with should.Matchers {
     val friends: Seq[Friend] = Seq(Friend("John", date("2022-06-15"), EmailAddress("john.doe@foobar.com")))
     val emailSender = new EmailSenderMock()
     val clock = ClockStub.today(date("2022-06-15"))
-    val birthdayGreetingsSender = new BirthdayGreetingsSender(friends, emailSender, clock)
+    val birthdayGreetings = new BirthdayGreetingsFacade(friends, emailSender, clock)
 
-    birthdayGreetingsSender.sendGreetings()
+    birthdayGreetings.sendGreetings()
 
     emailSender.emails.size shouldBe 1
     emailSender.emails.head.text shouldBe
@@ -59,9 +59,9 @@ class BirthdayGreetingSenderTest extends AnyFlatSpec with should.Matchers {
     )
     val emailSender = new EmailSenderMock()
     val clock = ClockStub.today(date("2022-06-15"))
-    val birthdayGreetingsSender = new BirthdayGreetingsSender(friends, emailSender, clock)
+    val birthdayGreetings = new BirthdayGreetingsFacade(friends, emailSender, clock)
 
-    birthdayGreetingsSender.sendGreetings()
+    birthdayGreetings.sendGreetings()
 
     emailSender.emails.size shouldBe 1
     emailSender.emails.head.personName shouldBe "Alan"
