@@ -23,10 +23,9 @@ import java.time.format.DateTimeFormatter
 class BirthdayGreetingSenderTest extends AnyFlatSpec with should.Matchers {
 
   "The greeting sender " should "send one email to the specified address" in {
-    val birthdate = parseDate("2022-06-15")
-    val friends: Seq[Friend] = Seq(Friend("John", EmailAddress("john.doe@foobar.com"), birthdate))
+    val friends: Seq[Friend] = Seq(Friend("John", date("2022-06-15"), EmailAddress("john.doe@foobar.com")))
     val emailSender = new EmailSenderMock()
-    val clock = new ClockStub(birthdate)
+    val clock = ClockStub.today(date("2022-06-15"))
     val birthdayGreetingsSender = new BirthdayGreetingsSender(friends, emailSender, clock)
 
     birthdayGreetingsSender.sendGreetings()
@@ -36,10 +35,9 @@ class BirthdayGreetingSenderTest extends AnyFlatSpec with should.Matchers {
   }
 
   "The greeting sender " should "send one email to the specified friend" in {
-    val birthdate = parseDate("2022-06-15")
-    val friends: Seq[Friend] = Seq(Friend("John", EmailAddress("john.doe@foobar.com"), birthdate))
+    val friends: Seq[Friend] = Seq(Friend("John", date("2022-06-15"), EmailAddress("john.doe@foobar.com")))
     val emailSender = new EmailSenderMock()
-    val clock = new ClockStub(parseDate("2022-06-15"))
+    val clock = ClockStub.today(date("2022-06-15"))
     val birthdayGreetingsSender = new BirthdayGreetingsSender(friends, emailSender, clock)
 
     birthdayGreetingsSender.sendGreetings()
@@ -54,11 +52,9 @@ class BirthdayGreetingSenderTest extends AnyFlatSpec with should.Matchers {
   }
 
   "The greeting sender " should "send no email if today is not a birthday" in {
-    val birthdate = parseDate("1975-09-07")
-    val friend = Friend("John", EmailAddress("john.doe@foobar.com"), birthdate)
-    val clock = new ClockStub(parseDate("2022-06-15"))
-    val friends: Seq[Friend] = Seq(friend)
+    val friends: Seq[Friend] = Seq(Friend("John", date("1975-09-07"), EmailAddress("john.doe@foobar.com")))
     val emailSender = new EmailSenderMock()
+    val clock = ClockStub.today(date("2022-06-15"))
     val birthdayGreetingsSender = new BirthdayGreetingsSender(friends, emailSender, clock)
 
     birthdayGreetingsSender.sendGreetings()
@@ -67,7 +63,7 @@ class BirthdayGreetingSenderTest extends AnyFlatSpec with should.Matchers {
   }
 
 
-  private def parseDate(dateString: String): LocalDate = {
+  private def date(dateString: String): LocalDate = {
     LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
   }
 }
