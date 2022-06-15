@@ -26,7 +26,7 @@ class BirthdayGreetingFacadeTest extends AnyFlatSpec with should.Matchers {
     val friends: Seq[Friend] = Seq(Friend("John", date("2022-06-15"), EmailAddress("john.doe@foobar.com")))
     val emailSender = new EmailSenderMock()
     val clock = ClockStub.today(date("2022-06-15"))
-    val birthdayGreetings = new BirthdayGreetingsFacade(friends, emailSender, clock)
+    val birthdayGreetings = new BirthdayGreetingsFacade(friendRepository(friends), emailSender, clock)
 
     birthdayGreetings.sendGreetings()
 
@@ -38,7 +38,7 @@ class BirthdayGreetingFacadeTest extends AnyFlatSpec with should.Matchers {
     val friends: Seq[Friend] = Seq(Friend("John", date("2022-06-15"), EmailAddress("john.doe@foobar.com")))
     val emailSender = new EmailSenderMock()
     val clock = ClockStub.today(date("2022-06-15"))
-    val birthdayGreetings = new BirthdayGreetingsFacade(friends, emailSender, clock)
+    val birthdayGreetings = new BirthdayGreetingsFacade(friendRepository(friends), emailSender, clock)
 
     birthdayGreetings.sendGreetings()
 
@@ -59,7 +59,7 @@ class BirthdayGreetingFacadeTest extends AnyFlatSpec with should.Matchers {
     )
     val emailSender = new EmailSenderMock()
     val clock = ClockStub.today(date("2022-06-15"))
-    val birthdayGreetings = new BirthdayGreetingsFacade(friends, emailSender, clock)
+    val birthdayGreetings = new BirthdayGreetingsFacade(friendRepository(friends), emailSender, clock)
 
     birthdayGreetings.sendGreetings()
 
@@ -67,6 +67,9 @@ class BirthdayGreetingFacadeTest extends AnyFlatSpec with should.Matchers {
     emailSender.emails.head.personName shouldBe "Alan"
   }
 
+  private def friendRepository(friendList: Seq[Friend]): FriendRepository = new FriendRepository {
+      override def allFriends: Seq[Friend] = friendList
+    }
 
   private def date(dateString: String): LocalDate = {
     LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
