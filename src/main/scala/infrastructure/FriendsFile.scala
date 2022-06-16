@@ -1,9 +1,8 @@
-package walt.kata
-package infrastructure
+package walt.kata.infrastructure
 
-import features.date.Date
-import features.email.EmailAddress
-import features.greetings.{Friend, FriendRepository}
+import walt.kata.features.date.Date
+import walt.kata.features.email.EmailAddress
+import walt.kata.features.greetings.{Friend, FriendRepository}
 
 import scala.io.Source
 
