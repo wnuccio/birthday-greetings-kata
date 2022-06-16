@@ -3,10 +3,9 @@ package it.walt.kata.config
 import it.walt.kata.features.date.Clock
 import it.walt.kata.features.email.{Email, EmailGateway, EmailSender}
 import it.walt.kata.features.greetings.{BirthdayGreetingsFacade, FriendRepository}
-import it.walt.kata.infrastructure.{ClockReadFromFile, FriendsFile}
+import it.walt.kata.infrastructure.{ClockReadFromFile, FriendsFile, RealClock}
 
 import java.io.{FileWriter, PrintWriter}
-import java.time.LocalDate
 
 class Config(val args: Array[String]) {
   val greetingsFacade = new BirthdayGreetingsFacade(friendRepository(), clock(), greetingsSender())
@@ -26,10 +25,6 @@ class Config(val args: Array[String]) {
         new WriteEmailOnFile(args(2)) else new WriteEmailOnConsole()
 
       new EmailSender(emailGateway)
-    }
-
-    class RealClock() extends Clock {
-      override def today: LocalDate = LocalDate.now()
     }
 
     class WriteEmailOnFile(outputFile: String) extends EmailGateway {
