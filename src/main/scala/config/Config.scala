@@ -1,9 +1,9 @@
 package walt.kata
 package config
 
-import features.date.Date
+import features.date.{Clock, Date}
 import features.email.{Email, EmailGateway, EmailSender}
-import features.greeting.{BirthdayGreetingsFacade, Clock, FriendRepository}
+import features.greeting.{BirthdayGreetingsFacade, FriendRepository}
 import infrastructure.FriendsFile
 
 import java.io.{FileWriter, PrintWriter}
