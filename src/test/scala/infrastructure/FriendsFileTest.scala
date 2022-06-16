@@ -4,7 +4,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should
 import walt.kata.features.date.Date
 import walt.kata.features.email.EmailAddress
-import walt.kata.features.greeting.Friend
+import walt.kata.features.greetings.Friend
 
 class FriendsFileTest extends AnyFlatSpec with should.Matchers {
 

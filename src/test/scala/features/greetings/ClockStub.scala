@@ -1,4 +1,4 @@
-package walt.kata.features.greeting
+package walt.kata.features.greetings
 
 import walt.kata.features.date.Clock
 

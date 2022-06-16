@@ -1,7 +1,7 @@
 package walt.kata
 package features.email
 
-import features.greeting.{Friend, GreetingsSender}
+import features.greetings.{Friend, GreetingsSender}
 
 class EmailSender(emailGateway: EmailGateway) extends GreetingsSender {
 

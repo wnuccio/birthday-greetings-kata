@@ -3,7 +3,7 @@ package infrastructure
 
 import features.date.Date
 import features.email.EmailAddress
-import features.greeting.{Friend, FriendRepository}
+import features.greetings.{Friend, FriendRepository}
 
 import scala.io.Source
 

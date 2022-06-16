@@ -3,7 +3,7 @@ package config
 
 import features.date.{Clock, Date}
 import features.email.{Email, EmailGateway, EmailSender}
-import features.greeting.{BirthdayGreetingsFacade, FriendRepository}
+import features.greetings.{BirthdayGreetingsFacade, FriendRepository}
 import infrastructure.FriendsFile
 
 import java.io.{FileWriter, PrintWriter}

@@ -1,4 +1,4 @@
-package walt.kata.features.greeting
+package walt.kata.features.greetings
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should

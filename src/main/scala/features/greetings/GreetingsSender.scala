@@ -1,5 +1,5 @@
 package walt.kata
-package features.greeting
+package features.greetings
 
 trait GreetingsSender {
   def sendGreetingsTo(friend: Friend): Unit
