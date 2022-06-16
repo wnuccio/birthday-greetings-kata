@@ -11,9 +11,12 @@ import scala.io.Source
 class FriendsFile(filename: String) extends FriendRepository{
 
   override def allFriends: Seq[Friend] = {
-    val lines: Iterator[String] = Source.fromResource(filename).getLines()
+    val source = Source.fromFile("src/main/resources/" + filename)
+    val lines = source.getLines()
     lines.next() // discard header line
-    lines.map(toFriend).toSeq
+    val friends = lines.map(toFriend).toSeq
+    source.close()
+    friends
   }
 
   private def toFriend(line: String): Friend = {

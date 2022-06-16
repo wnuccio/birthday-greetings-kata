@@ -11,7 +11,7 @@ import org.scalatest.matchers.should
 class FriendsFileTest extends AnyFlatSpec with should.Matchers {
 
   "The friends file " should "return a list of friends read from a file" in {
-    val friendsFile: FriendsFile = new FriendsFile("friends.txt")
+    val friendsFile: FriendsFile = new FriendsFile("test/friends.txt")
 
     val friends: Seq[Friend] = friendsFile.allFriends
 
