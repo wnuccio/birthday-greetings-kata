@@ -1,5 +1,5 @@
 package walt.kata
-package email
+package features.email
 
 class EmailGatewayMock() extends EmailGateway {
   var emails: Seq[Email] = Seq.empty

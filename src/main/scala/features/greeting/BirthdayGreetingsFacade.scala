@@ -1,5 +1,5 @@
 package walt.kata
-package greeting
+package features.greeting
 
 class BirthdayGreetingsFacade(friendRepository: FriendRepository, clock: Clock, greetingsSender: GreetingsSender) {
 

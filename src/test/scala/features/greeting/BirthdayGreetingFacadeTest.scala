@@ -1,11 +1,9 @@
-package walt.kata
-package greeting
-
-import date.Date
-import email.{EmailAddress, EmailGatewayMock, EmailSender}
+package walt.kata.features.greeting
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should
+import walt.kata.features.date.Date
+import walt.kata.features.email.{EmailAddress, EmailGatewayMock, EmailSender}
 
 /***
  * Test case list:

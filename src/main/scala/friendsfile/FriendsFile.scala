@@ -1,9 +1,9 @@
 package walt.kata
 package friendsfile
 
-import date.Date
-import email.EmailAddress
-import greeting.{Friend, FriendRepository}
+import features.date.Date
+import features.email.EmailAddress
+import features.greeting.{Friend, FriendRepository}
 
 import scala.io.Source
 

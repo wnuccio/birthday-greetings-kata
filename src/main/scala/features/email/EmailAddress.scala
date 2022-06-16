@@ -1,5 +1,5 @@
 package walt.kata
-package email
+package features.email
 
 case class EmailAddress(value: String) {
 

@@ -1,5 +1,5 @@
 package walt.kata
-package greeting
+package features.greeting
 
 import java.time.LocalDate
 

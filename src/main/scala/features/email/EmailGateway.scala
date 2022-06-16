@@ -1,5 +1,5 @@
 package walt.kata
-package email
+package features.email
 
 trait EmailGateway {
   def sendEmail(email: Email): Unit

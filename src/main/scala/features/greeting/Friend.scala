@@ -1,7 +1,7 @@
 package walt.kata
-package greeting
+package features.greeting
 
-import email.EmailAddress
+import features.email.EmailAddress
 
 import java.time.LocalDate
 
