@@ -11,7 +11,6 @@ class BirthdayGreetingsAcceptanceTest extends AnyFlatSpec with should.Matchers {
   "The app" should "read a file of friends and send an email for each birthday" in {
     val output = Paths.get("src/main/resources/test/emails.txt")
     Files.deleteIfExists(output)
-    Files.createFile(output)
 
     BirthdayGreetings.main(Array[String]("test/friends.txt", "test/clock.txt", "test/emails.txt"))
 
