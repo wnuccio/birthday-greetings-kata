@@ -12,6 +12,20 @@ import scala.io.Source
 
 class Config(val args: Array[String]) {
 
+  val greetingsFacade = new BirthdayGreetingsFacade(friendRepository(), clock(), greetingsSender())
+
+  private def friendRepository(): FriendRepository = {
+    val inputFile = args(0)
+    new FriendsFile(inputFile)
+  }
+
+  private def clock(): Clock = {
+    val clockFile = args(1)
+    new Clock {
+      override def today: LocalDate = Date(Source.fromResource(clockFile).getLines().next())
+    }
+  }
+
   private def greetingsSender() = {
     val outputFile = args(2)
     val emailSender = new EmailSender(new EmailGateway {
@@ -24,19 +38,4 @@ class Config(val args: Array[String]) {
     })
     emailSender
   }
-
-  private def clock(): Clock = {
-    val clockFile = args(1)
-    new Clock {
-      override def today: LocalDate = Date(Source.fromResource(clockFile).getLines().next())
-    }
-  }
-
-  private def friendRepository(): FriendRepository = {
-    val inputFile = args(0)
-    new FriendsFile(inputFile)
-  }
-
-  val greetingsFacade = new BirthdayGreetingsFacade(friendRepository(), clock(), greetingsSender())
-
 }
