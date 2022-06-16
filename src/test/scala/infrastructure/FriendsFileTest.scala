@@ -1,4 +1,4 @@
-package walt.kata.friendsfile
+package walt.kata.infrastructure
 
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should

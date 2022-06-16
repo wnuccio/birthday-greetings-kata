@@ -1,5 +1,5 @@
 package walt.kata
-package friendsfile
+package infrastructure
 
 import features.date.Date
 import features.email.EmailAddress
