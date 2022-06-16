@@ -1,11 +1,10 @@
 package walt.kata
 package friendsfile
 
+import date.Date
 import email.EmailAddress
 import greeting.{Friend, FriendRepository}
 
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import scala.io.Source
 
 class FriendsFile(filename: String) extends FriendRepository{
@@ -25,7 +24,7 @@ class FriendsFile(filename: String) extends FriendRepository{
     val birthdateString = fields(2)
     val emailAddressString = fields(3)
 
-    val birthdate = LocalDate.parse(birthdateString, DateTimeFormatter.ofPattern("yyyy/MM/dd"))
+    val birthdate = Date(birthdateString)
     val emailAddress = EmailAddress(emailAddressString)
 
     Friend(firstName, birthdate, emailAddress)
