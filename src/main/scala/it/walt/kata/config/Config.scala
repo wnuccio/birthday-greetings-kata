@@ -1,7 +1,7 @@
 package it.walt.kata.config
 
 import it.walt.kata.features.date.Clock
-import it.walt.kata.features.email.EmailSender
+import it.walt.kata.features.email.{EmailGateway, EmailSender}
 import it.walt.kata.features.greetings.{BirthdayGreetingsFacade, FriendRepository}
 import it.walt.kata.infrastructure._
 
@@ -16,8 +16,8 @@ class Config(val args: Array[String]) {
 
   private lazy val greetingsSender = new EmailSender(emailGateway)
 
-  private lazy val emailGateway = if (isAcceptanceTest)
-      new WriteEmailOnFile(args(2)) else new WriteEmailOnConsole()
+  private lazy val emailGateway: EmailGateway = if (isAcceptanceTest)
+    new WriteEmailOnFile(args(2)) with WriteEmailOnConsole else new WriteEmailOnConsole {}
 
   private lazy val isAcceptanceTest = args.length == 3
   }
