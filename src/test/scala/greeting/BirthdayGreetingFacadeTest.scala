@@ -25,7 +25,7 @@ class BirthdayGreetingFacadeTest extends AnyFlatSpec with should.Matchers {
     val emailGateway = new EmailGatewayMock()
     val emailSender = new EmailSender(emailGateway)
     val clock = ClockStub.today(Date("2022-06-15"))
-    val birthdayGreetings = new BirthdayGreetingsFacade(friendRepository(friends), emailSender, clock)
+    val birthdayGreetings = new BirthdayGreetingsFacade(friendRepository(friends), clock, emailSender)
 
     birthdayGreetings.sendGreetings()
 
@@ -38,7 +38,7 @@ class BirthdayGreetingFacadeTest extends AnyFlatSpec with should.Matchers {
     val emailGateway = new EmailGatewayMock()
     val emailSender = new EmailSender(emailGateway)
     val clock = ClockStub.today(Date("2022-06-15"))
-    val birthdayGreetings = new BirthdayGreetingsFacade(friendRepository(friends), emailSender, clock)
+    val birthdayGreetings = new BirthdayGreetingsFacade(friendRepository(friends), clock, emailSender)
 
     birthdayGreetings.sendGreetings()
 
@@ -61,7 +61,7 @@ class BirthdayGreetingFacadeTest extends AnyFlatSpec with should.Matchers {
     val emailGateway = new EmailGatewayMock()
     val emailSender = new EmailSender(emailGateway)
     val clock = ClockStub.today(Date("2022-06-15"))
-    val birthdayGreetings = new BirthdayGreetingsFacade(friendRepository(friends), emailSender, clock)
+    val birthdayGreetings = new BirthdayGreetingsFacade(friendRepository(friends), clock, emailSender)
 
     birthdayGreetings.sendGreetings()
 

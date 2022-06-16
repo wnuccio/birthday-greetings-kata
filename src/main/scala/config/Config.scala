@@ -37,6 +37,6 @@ class Config(val args: Array[String]) {
     new FriendsFile(inputFile)
   }
 
-  val greetingsFacade = new BirthdayGreetingsFacade(friendRepository(), greetingsSender(), clock())
+  val greetingsFacade = new BirthdayGreetingsFacade(friendRepository(), clock(), greetingsSender())
 
 }

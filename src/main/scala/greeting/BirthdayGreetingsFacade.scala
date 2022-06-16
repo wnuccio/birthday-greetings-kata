@@ -1,7 +1,7 @@
 package walt.kata
 package greeting
 
-class BirthdayGreetingsFacade(friendRepository: FriendRepository, greetingsSender: GreetingsSender, clock: Clock) {
+class BirthdayGreetingsFacade(friendRepository: FriendRepository, clock: Clock, greetingsSender: GreetingsSender) {
 
   def sendGreetings(): Unit = {
     friendRepository
