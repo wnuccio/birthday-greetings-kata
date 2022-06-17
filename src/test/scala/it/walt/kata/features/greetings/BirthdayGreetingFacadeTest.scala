@@ -2,7 +2,7 @@ package it.walt.kata.features.greetings
 
 import it.walt.kata.features.date.Date
 import it.walt.kata.features.email.{EmailAddress, EmailGatewayMock, EmailSender}
-import it.walt.kata.features.greetings.FriendForTest.friend
+import it.walt.kata.features.greetings.FriendForTest.{friend, friendRepository}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should
 
@@ -106,9 +106,4 @@ class BirthdayGreetingFacadeTest extends AnyFlatSpec with should.Matchers {
     val mailsSentTo = emailGateway.emails.map(_.personName)
     mailsSentTo should contain("John")
   }
-
-  private def friendRepository(friendList: Seq[Friend]): FriendRepository = new FriendRepository {
-      override def allFriends: Seq[Friend] = friendList
-    }
-
 }
