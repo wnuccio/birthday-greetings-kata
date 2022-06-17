@@ -65,7 +65,7 @@ class BirthdayGreetingFacadeTest extends AnyFlatSpec with should.Matchers {
     birthdayGreetings.sendGreetings()
 
     emailGateway.emails.size shouldBe 2
-    val mailsSentTo = emailGateway.emails.map(_.personName)
+    val mailsSentTo = emailGateway.emails.map(_.sentTo)
     mailsSentTo should contain("Alan")
     mailsSentTo should contain("Roby")
   }
@@ -85,7 +85,7 @@ class BirthdayGreetingFacadeTest extends AnyFlatSpec with should.Matchers {
 
     birthdayGreetings.sendGreetings()
 
-    val mailsSentTo = emailGateway.emails.map(_.personName)
+    val mailsSentTo = emailGateway.emails.map(_.sentTo)
     mailsSentTo should contain("John")
     mailsSentTo should contain("Alan")
   }
@@ -103,7 +103,7 @@ class BirthdayGreetingFacadeTest extends AnyFlatSpec with should.Matchers {
     birthdayGreetings.sendGreetings()
 
     emailGateway.emails.size shouldBe 1
-    val mailsSentTo = emailGateway.emails.map(_.personName)
+    val mailsSentTo = emailGateway.emails.map(_.sentTo)
     mailsSentTo should contain("John")
   }
 }

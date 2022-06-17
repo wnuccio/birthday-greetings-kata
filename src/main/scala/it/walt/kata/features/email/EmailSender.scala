@@ -8,4 +8,9 @@ class EmailSender(emailGateway: EmailGateway) extends GreetingsSender {
     val email = Email(friend.firstName, friend.emailAddress)
     emailGateway.sendEmail(email)
   }
+
+  override def sendRemainderTo(friend: Friend, birthdayFriend: Friend): Unit = {
+    val email = Email.remainder(friend, birthdayFriend: Friend)
+    emailGateway.sendEmail(email)
+  }
 }
