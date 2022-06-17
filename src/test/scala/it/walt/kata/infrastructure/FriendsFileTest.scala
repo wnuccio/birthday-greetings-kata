@@ -13,9 +13,9 @@ class FriendsFileTest extends AnyFlatSpec with should.Matchers {
     val friends: Seq[Friend] = friendsFile.allFriends
 
     friends.size shouldBe 3
-    friends should contain (friend("John", "1982/10/08", "john.doe@foobar.com"))
-    friends should contain (friend("Mary", "1975/09/11", "mary.ann@foobar.com"))
-    friends should contain (friend("Walt", "1982/09/11", "walt.nuc@foobar.com"))
+    friends should contain (friend("John Doe", "1982/10/08", "john.doe@foobar.com"))
+    friends should contain (friend("Mary Ann", "1975/09/11", "mary.ann@foobar.com"))
+    friends should contain (friend("Walt Nuc", "1982/09/11", "walt.nuc@foobar.com"))
   }
 
 }

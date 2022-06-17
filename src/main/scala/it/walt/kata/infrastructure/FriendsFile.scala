@@ -19,6 +19,7 @@ class FriendsFile(filename: String) extends FriendRepository{
 
   private def toFriend(line: String): Friend = {
     val fields: Array[String] = line.split(", ")
+    val lastName = fields(0)
     val firstName = fields(1)
     val birthdateString = fields(2)
     val emailAddressString = fields(3)
@@ -26,6 +27,6 @@ class FriendsFile(filename: String) extends FriendRepository{
     val birthdate = Date(birthdateString)
     val emailAddress = EmailAddress(emailAddressString)
 
-    Friend(firstName, birthdate, emailAddress)
+    Friend(firstName, lastName, birthdate, emailAddress)
   }
 }

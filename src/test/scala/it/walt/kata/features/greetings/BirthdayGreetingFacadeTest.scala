@@ -20,7 +20,7 @@ import org.scalatest.matchers.should
 class BirthdayGreetingFacadeTest extends AnyFlatSpec with should.Matchers {
 
   "The greeting sender " should "send one email to the specified address" in {
-    val friends: Seq[Friend] = Seq(Friend("John", Date("2022/06/15"), EmailAddress("john.doe@foobar.com")))
+    val friends: Seq[Friend] = Seq(friend("John", "2022/06/15", "john.doe@foobar.com"))
     val emailGateway = new EmailGatewayMock()
     val emailSender = new EmailSender(emailGateway)
     val clock = ClockStub.today(Date("2022/06/15"))
@@ -33,7 +33,7 @@ class BirthdayGreetingFacadeTest extends AnyFlatSpec with should.Matchers {
   }
 
   "The greeting sender " should "send one email to the specified friend" in {
-    val friends: Seq[Friend] = Seq(Friend("John", Date("2022/06/15"), EmailAddress("john.doe@foobar.com")))
+    val friends: Seq[Friend] = Seq(friend("John", "2022/06/15", "john.doe@foobar.com"))
     val emailGateway = new EmailGatewayMock()
     val emailSender = new EmailSender(emailGateway)
     val clock = ClockStub.today(Date("2022/06/15"))
@@ -52,10 +52,10 @@ class BirthdayGreetingFacadeTest extends AnyFlatSpec with should.Matchers {
 
   "The greeting sender " should "send no email if today is not a birthday" in {
     val friends: Seq[Friend] = Seq(
-      Friend("John", Date("1975/06/14"), EmailAddress("john.doe@foobar.com")),
-      Friend("Alan", Date("1975/06/15"), EmailAddress("alan.foe@foobar.com")),
-      Friend("Mike", Date("1975/07/15"), EmailAddress("mike.toe@foobar.com")),
-      Friend("Roby", Date("1976/06/15"), EmailAddress("roby.foe@foobar.com"))
+      friend("John", "1975/06/14", "john.doe@foobar.com"),
+      friend("Alan", "1975/06/15", "alan.foe@foobar.com"),
+      friend("Mike", "1975/07/15", "mike.toe@foobar.com"),
+      friend("Roby", "1976/06/15", "roby.foe@foobar.com")
     )
     val emailGateway = new EmailGatewayMock()
     val emailSender = new EmailSender(emailGateway)

@@ -4,7 +4,7 @@ import it.walt.kata.features.email.EmailAddress
 
 import java.time.LocalDate
 
-case class Friend(firstName: String, birthdate: LocalDate, emailAddress: EmailAddress) {
+case class Friend(firstName: String, lastName: String, birthdate: LocalDate, emailAddress: EmailAddress) {
 
   def isBirthdate(today: LocalDate): Boolean = {
     isRegularBirthdate(today) || isBirthdateForLeapYears(today)
