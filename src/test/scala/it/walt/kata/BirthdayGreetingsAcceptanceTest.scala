@@ -17,7 +17,7 @@ class BirthdayGreetingsAcceptanceTest extends AnyFlatSpec with should.Matchers {
     Files.exists(output) shouldBe true
     val lines = Files.readAllLines(output).asScala
     lines.size shouldBe 2
-    lines(0) shouldBe "email to: Mary, mary.ann@foobar.com"
-    lines(1) shouldBe "email to: Walt, walt.nuc@foobar.com"
+    lines(0) shouldBe "happy birthday to: Mary, mary.ann@foobar.com"
+    lines(1) shouldBe "happy birthday to: Walt, walt.nuc@foobar.com"
   }
 }

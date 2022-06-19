@@ -14,6 +14,7 @@ object Email {
 }
 
 trait Email {
+  def typetext: String
   def sentTo: String
   def address: EmailAddress
   def text: String
@@ -27,6 +28,8 @@ class HappyBirthdayEmail(val sentTo: String, val address: EmailAddress) extends 
       |
       | Happy birthday, dear <first_name>!
       |""".stripMargin
+
+  override val typetext: String = "happy birthday"
 
   override val text: String = textTemplate.replace("<first_name>", sentTo)
 }
@@ -42,6 +45,8 @@ class BirthdayRemainderEmail(val sentTo: String, val address: EmailAddress) exte
       | Today is John Doe's birthday.
       | Don't forget to send him a message !
       |""".stripMargin
+
+  override val typetext: String = "birthday remainder "
 
   override val text: String = textTemplate.replace("<first_name>", sentTo)
 }
