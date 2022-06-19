@@ -13,11 +13,13 @@ object Email {
   }
 }
 
-class Email(val sentTo: String, val address: EmailAddress, val text: String) {
+trait Email {
+  def sentTo: String
+  def address: EmailAddress
+  def text: String
 }
 
-class HappyBirthdayEmail(sentTo: String, address: EmailAddress) extends
-  Email(sentTo, address, null) {
+class HappyBirthdayEmail(val sentTo: String, val address: EmailAddress) extends Email {
 
   private lazy val textTemplate: String =
     """
@@ -29,8 +31,7 @@ class HappyBirthdayEmail(sentTo: String, address: EmailAddress) extends
   override val text: String = textTemplate.replace("<first_name>", sentTo)
 }
 
-class BirthdayRemainderEmail(sentTo: String, address: EmailAddress) extends
-  Email(sentTo, address, null) {
+class BirthdayRemainderEmail(val sentTo: String, val address: EmailAddress) extends Email {
 
   private lazy val textTemplate: String =
     """
