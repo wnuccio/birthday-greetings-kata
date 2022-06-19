@@ -8,8 +8,8 @@ object Email {
     new BirthdayRemainderEmail(toFriend, birthdayFriend)
   }
 
-  def happyBirthdayTo(firstName: String, address: EmailAddress): Email = {
-    new HappyBirthdayEmail(firstName, address)
+  def happyBirthdayTo(toFriend: Friend): Email = {
+    new HappyBirthdayEmail(toFriend: Friend)
   }
 }
 
@@ -20,7 +20,7 @@ trait Email {
   def text: String
 }
 
-class HappyBirthdayEmail(val sentTo: String, val address: EmailAddress) extends Email {
+class HappyBirthdayEmail(toFriend: Friend) extends Email {
 
   private lazy val textTemplate: String =
     """
@@ -30,7 +30,8 @@ class HappyBirthdayEmail(val sentTo: String, val address: EmailAddress) extends 
       |""".stripMargin
 
   override val typetext: String = "happy birthday"
-
+  override val sentTo: String = toFriend.firstName
+  override val address: EmailAddress = toFriend.emailAddress
   override val text: String = textTemplate.replace("<first_name>", sentTo)
 }
 
@@ -49,7 +50,6 @@ class BirthdayRemainderEmail(toFriend: Friend, birthdayFriend: Friend) extends E
   override val typetext: String = "birthday remainder "
   override val sentTo: String = toFriend.firstName
   override val address: EmailAddress = toFriend.emailAddress
-
   override val text: String = textTemplate
     .replace("<first_name>", sentTo)
     .replace("<other_friend>", s"${birthdayFriend.firstName} ${birthdayFriend.lastName}")
