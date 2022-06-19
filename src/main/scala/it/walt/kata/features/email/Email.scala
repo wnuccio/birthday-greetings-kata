@@ -2,17 +2,6 @@ package it.walt.kata.features.email
 
 import it.walt.kata.features.greetings.Friend
 
-
-object Email {
-  def remainder(toFriend: Friend, birthdayFriend: Friend): Email = {
-    new BirthdayRemainderEmail(toFriend, birthdayFriend)
-  }
-
-  def happyBirthdayTo(toFriend: Friend): Email = {
-    new HappyBirthdayEmail(toFriend: Friend)
-  }
-}
-
 trait Email {
   def typetext: String
   def sentTo: String
