@@ -19,20 +19,25 @@ object Email {
     new Email(friend.firstName, friend.emailAddress, text)
   }
 
-  def apply(firstName: String, address: EmailAddress): Email = {
-    val textTemplate: String =
+  def happyBirthdayTo(firstName: String, address: EmailAddress): Email = {
+    new HappyBirthdayEmail(firstName, address)
+  }
+}
+
+class Email(val sentTo: String, val address: EmailAddress, val text: String) {
+}
+
+class HappyBirthdayEmail(sentTo: String, address: EmailAddress) extends
+  Email(sentTo, address, null) {
+
+  private lazy val textTemplate: String =
     """
       |Subject: Happy birthday!
       |
       | Happy birthday, dear <first_name>!
       |""".stripMargin
 
-    val text: String = textTemplate.replace("<first_name>", firstName)
-    new Email(firstName, address, text)
-  }
-}
-
-class Email(val sentTo: String, val address: EmailAddress, val text: String) {
+  override val text: String = textTemplate.replace("<first_name>", sentTo)
 }
 
 
