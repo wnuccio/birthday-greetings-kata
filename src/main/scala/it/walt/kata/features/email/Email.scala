@@ -4,8 +4,8 @@ import it.walt.kata.features.greetings.Friend
 
 
 object Email {
-  def remainder(friend: Friend, birthdayFriend: Friend): Email = {
-    new BirthdayRemainderEmail(friend.firstName, friend.emailAddress)
+  def remainder(toFriend: Friend, birthdayFriend: Friend): Email = {
+    new BirthdayRemainderEmail(toFriend, birthdayFriend)
   }
 
   def happyBirthdayTo(firstName: String, address: EmailAddress): Email = {
@@ -34,7 +34,7 @@ class HappyBirthdayEmail(val sentTo: String, val address: EmailAddress) extends 
   override val text: String = textTemplate.replace("<first_name>", sentTo)
 }
 
-class BirthdayRemainderEmail(val sentTo: String, val address: EmailAddress) extends Email {
+class BirthdayRemainderEmail(toFriend: Friend, birthdayFriend: Friend) extends Email {
 
   private lazy val textTemplate: String =
     """
@@ -42,13 +42,18 @@ class BirthdayRemainderEmail(val sentTo: String, val address: EmailAddress) exte
       |
       | Dear <first_name>!
       |
-      | Today is John Doe's birthday.
+      | Today is <other_friend>'s birthday.
       | Don't forget to send him a message !
       |""".stripMargin
 
   override val typetext: String = "birthday remainder "
+  override val sentTo: String = toFriend.firstName
+  override val address: EmailAddress = toFriend.emailAddress
 
-  override val text: String = textTemplate.replace("<first_name>", sentTo)
+  override val text: String = textTemplate
+    .replace("<first_name>", sentTo)
+    .replace("<other_friend>", s"${birthdayFriend.firstName} ${birthdayFriend.lastName}")
+
 }
 
 
