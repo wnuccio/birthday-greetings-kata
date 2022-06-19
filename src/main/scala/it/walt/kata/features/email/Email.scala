@@ -16,7 +16,7 @@ object Email {
       |""".stripMargin
 
     val text = textTemplate.replace("<first_name>", friend.firstName)
-    Email(friend.firstName, friend.emailAddress, text)
+    new Email(friend.firstName, friend.emailAddress, text)
   }
 
   def apply(firstName: String, address: EmailAddress): Email = {
@@ -28,9 +28,11 @@ object Email {
       |""".stripMargin
 
     val text: String = textTemplate.replace("<first_name>", firstName)
-    Email(firstName, address, text)
+    new Email(firstName, address, text)
   }
 }
 
-case class Email(sentTo: String, address: EmailAddress, text: String) {
+class Email(val sentTo: String, val address: EmailAddress, val text: String) {
 }
+
+
