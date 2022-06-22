@@ -6,17 +6,6 @@ import it.walt.kata.features.greetings.FriendForTest.friend
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should
 
-/***
- * Test case list:
- *
- * Done
- * - one friend -> one greeeting
- * - one friend -> one greeting with verification of the email address
- * - one friend -> one greeting with verification of the message
- * - one friend -> no greeting if today is not her birthday
- * - two friend -> one greeting since it is the birthday of the first one
- */
-
 class HappyBirthdayTest extends AnyFlatSpec with should.Matchers {
 
   "The greeting sender " should "send one happy birthday to the specified address" in {

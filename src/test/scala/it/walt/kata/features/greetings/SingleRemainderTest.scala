@@ -7,14 +7,6 @@ import it.walt.kata.features.greetings.FriendForTest.friend
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should
 
-/***
- * Test case list:
- * - three friends -> one remainder for both of other friends
- * - four friends -> two remainders
- *
- * Done
- */
-
 class SingleRemainderTest extends AnyFlatSpec with should.Matchers {
 
   "The greeting sender" should "send one remainder for one birthdays" in {
