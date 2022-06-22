@@ -16,7 +16,7 @@ import org.scalatest.matchers.should
 
 class BirthdaySingleRemainderTest extends AnyFlatSpec with should.Matchers {
 
-  "The greeting sender" should "send two remainders" in {
+  "The greeting sender" should "send one remainder for two birthdays" in {
     val clock = ClockStub.today(Date("2022/06/15"))
     val friends: Seq[Friend] = Seq(
       friend("John Doe",  "1980/06/15", "john.doe@foobar.com"),
@@ -37,12 +37,12 @@ class BirthdaySingleRemainderTest extends AnyFlatSpec with should.Matchers {
         |
         | Dear Mary,
         |
-        | Today is John Doe's birthday.
+        | Today is John Doe and Walt Nuc's birthday.
         | Don't forget to send him a message !
         |""".stripMargin) shouldBe true
   }
 
-  ignore should "send four remainders" in {
+  "The greeting sender" should "send four remainders" in {
     val clock = ClockStub.today(Date("2022/06/15"))
     val friends: Seq[Friend] = Seq(
       friend("John Doe",  "1980/06/15", "john.doe@foobar.com"),
@@ -54,13 +54,11 @@ class BirthdaySingleRemainderTest extends AnyFlatSpec with should.Matchers {
     val emailSender = new EmailSender(emailGateway)
     val birthdayGreetings = new BirthdayGreetingsFacade(friendRepository(friends), clock, emailSender)
 
-    birthdayGreetings.sendRemainders()
+    birthdayGreetings.sendSingleRemainders()
 
-    emailGateway.emailSent() shouldBe 4
-    emailGateway.singleRemainderSentTo("Mary", about("John")) shouldBe true
-    emailGateway.singleRemainderSentTo("Mary", about("Walt")) shouldBe true
-    emailGateway.singleRemainderSentTo("Roby", about("John")) shouldBe true
-    emailGateway.singleRemainderSentTo("Roby", about("Walt")) shouldBe true
+    emailGateway.emailSent() shouldBe 2
+    emailGateway.singleRemainderSentTo("Mary", about("John Doe"), about("Walt Nuc")) shouldBe true
+    emailGateway.singleRemainderSentTo("Roby", about("John Doe"), about("Walt Nuc")) shouldBe true
   }
 
   private def about(name: String): String = name

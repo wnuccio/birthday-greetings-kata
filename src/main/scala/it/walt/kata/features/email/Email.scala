@@ -10,7 +10,6 @@ trait Email {
 }
 
 class HappyBirthdayEmail(toFriend: Friend) extends Email {
-
   private lazy val textTemplate: String =
     """
       |Subject: Happy birthday!
@@ -25,7 +24,6 @@ class HappyBirthdayEmail(toFriend: Friend) extends Email {
 }
 
 case class BirthdayRemainderEmail(toFriend: Friend, birthdayFriend: Friend) extends Email {
-
   private lazy val textTemplate: String =
     """
       |Subject: Birthday Remainder!
@@ -45,7 +43,6 @@ case class BirthdayRemainderEmail(toFriend: Friend, birthdayFriend: Friend) exte
 }
 
 case class BirthdaySingleRemainderEmail(toFriend: Friend, birthdayFriends: Seq[Friend]) extends Email {
-
   private lazy val textTemplate: String =
     """
       |Subject: Birthday Remainder!
@@ -59,12 +56,21 @@ case class BirthdaySingleRemainderEmail(toFriend: Friend, birthdayFriends: Seq[F
   override val typetext: String = "birthday single remainder "
   override val sentTo: String = toFriend.firstName
   override val address: EmailAddress = toFriend.emailAddress
-  override val text: String = {
-  val otherFriendFullNames: String = birthdayFriends(0).fullName
+  override lazy val text: String = {
+    def otherFriendFullNames(): String = {
+      if (birthdayFriends.size == 1) return birthdayFriends.head.fullName
+      val allButLast = birthdayFriends.map(_.fullName).init
+      val result = allButLast.mkString(", ") + " and " + birthdayFriends.last.fullName
+      println(result)
+      result
+    }
 
-    textTemplate
+     val result = textTemplate
       .replace("<first_name>", sentTo)
-      .replace("<other_friends_full_names>", otherFriendFullNames)
+      .replace("<other_friends_full_names>", otherFriendFullNames())
+
+    println(result)
+    result
   }
 }
 
