@@ -16,6 +16,30 @@ import org.scalatest.matchers.should
 
 class BirthdaySingleRemainderTest extends AnyFlatSpec with should.Matchers {
 
+  "The greeting sender" should "send one remainder for one birthdays" in {
+    val today = "2022/06/15"
+    val friends = Seq(
+      friend("John Doe",  "1980/06/15", "john.doe@foobar.com"),
+      friend("Mary Ann",  "1985/07/16", "mary.ann@foobar.com"),
+    )
+    val emailGateway = new EmailGatewayMock()
+    val birthdayGreetings = createGreetingsFacade(today, friends, emailGateway)
+
+    birthdayGreetings.sendSingleRemainders()
+
+    emailGateway.emailSent() shouldBe 1
+    emailGateway.singleRemainderSentTo("Mary", about("John Doe")) shouldBe true
+    emailGateway.emailSentWithText(
+      """
+        |Subject: Birthday Remainder!
+        |
+        | Dear Mary,
+        |
+        | Today is John Doe's birthday.
+        | Don't forget to send him a message !
+        |""".stripMargin) shouldBe true
+  }
+
   "The greeting sender" should "send one remainder for two birthdays" in {
     val today = "2022/06/15"
     val friends = Seq(
