@@ -1,8 +1,9 @@
 package it.walt.kata.features.greetings
 
 import it.walt.kata.features.date.Date
-import it.walt.kata.features.email.{EmailGateway, EmailGatewayMock, EmailSender}
-import it.walt.kata.features.greetings.FriendForTest.{friend, friendRepository}
+import it.walt.kata.features.email.EmailGatewayMock
+import it.walt.kata.features.greetings.BirthdayGreetingsFacadeFactory.createGreetingsFacade
+import it.walt.kata.features.greetings.FriendForTest.friend
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should
 
@@ -108,12 +109,6 @@ class BirthdaySingleRemainderTest extends AnyFlatSpec with should.Matchers {
     emailGateway.emailSent() shouldBe 2
     emailGateway.singleRemainderSentTo("Mary", about("John Doe"), about("Walt Nuc")) shouldBe true
     emailGateway.singleRemainderSentTo("Roby", about("John Doe"), about("Walt Nuc")) shouldBe true
-  }
-
-  private def createGreetingsFacade(today: String, friends: Seq[Friend], emailGateway: EmailGateway): BirthdayGreetingsFacade = {
-    val clock = ClockStub.today(Date(today))
-    val emailSender = new EmailSender(emailGateway)
-    new BirthdayGreetingsFacade(friendRepository(friends), clock, emailSender)
   }
 
   private def about(name: String): String = name
