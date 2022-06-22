@@ -8,9 +8,7 @@ import org.scalatest.matchers.should
 
 /***
  * Test case list:
- * - four friends -> one greeting with verification of the message
- * - one friend -> no greeting if today is not her birthday
- * - two friend -> one greeting since it is the birthday of the first one
+ * - four friends -> four remainders
  *
  * Done
  * - two friends -> one remainder
@@ -19,7 +17,7 @@ import org.scalatest.matchers.should
 
 class BirthdayRemainderTest extends AnyFlatSpec with should.Matchers {
 
-  "The greeting sender " should "send one remainder" in {
+  "The greeting sender" should "send one remainder" in {
     val clock = ClockStub.today(Date("2022/06/15"))
     val friends: Seq[Friend] = Seq(
       friend("John Doe",  "1975/06/15", "john.doe@foobar.com"),
@@ -43,7 +41,7 @@ class BirthdayRemainderTest extends AnyFlatSpec with should.Matchers {
         |""".stripMargin) shouldBe true
   }
 
-  "The greeting sender " should "send two remainders" in {
+  "The greeting sender" should "send two remainders" in {
     val clock = ClockStub.today(Date("2022/06/15"))
     val friends: Seq[Friend] = Seq(
     friend("John Doe",  "1980/06/15", "john.doe@foobar.com"),
