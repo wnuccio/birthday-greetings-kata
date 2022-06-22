@@ -29,8 +29,8 @@ class BirthdayRemainderTest extends AnyFlatSpec with should.Matchers {
 
     birthdayGreetings.sendRemainders()
 
-    emailGateway.sentEmailToAddress("mary.ann@foobar.com") shouldBe true
-    emailGateway.sentEmailWithText(
+    emailGateway.emailSentToAddress("mary.ann@foobar.com") shouldBe true
+    emailGateway.emailSentWithText(
       """
         |Subject: Birthday Remainder!
         |
@@ -55,8 +55,8 @@ class BirthdayRemainderTest extends AnyFlatSpec with should.Matchers {
     birthdayGreetings.sendRemainders()
 
     emailGateway.emailSent() shouldBe 2
-    emailGateway.sentRemaindersTo("Mary", about("John")) shouldBe true
-    emailGateway.sentRemaindersTo("Mary", about("Walt")) shouldBe true
+    emailGateway.remainderSentTo("Mary", about("John")) shouldBe true
+    emailGateway.remainderSentTo("Mary", about("Walt")) shouldBe true
   }
 
   "The greeting sender" should "send four remainders" in {
@@ -74,10 +74,10 @@ class BirthdayRemainderTest extends AnyFlatSpec with should.Matchers {
     birthdayGreetings.sendRemainders()
 
     emailGateway.emailSent() shouldBe 4
-    emailGateway.sentRemaindersTo("Mary", about("John")) shouldBe true
-    emailGateway.sentRemaindersTo("Mary", about("Walt")) shouldBe true
-    emailGateway.sentRemaindersTo("Roby", about("John")) shouldBe true
-    emailGateway.sentRemaindersTo("Roby", about("Walt")) shouldBe true
+    emailGateway.remainderSentTo("Mary", about("John")) shouldBe true
+    emailGateway.remainderSentTo("Mary", about("Walt")) shouldBe true
+    emailGateway.remainderSentTo("Roby", about("John")) shouldBe true
+    emailGateway.remainderSentTo("Roby", about("Walt")) shouldBe true
   }
 
   private def about(birthdayFriendName: String): String = birthdayFriendName

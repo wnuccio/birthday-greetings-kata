@@ -28,7 +28,7 @@ class BirthdayGreetingFacadeTest extends AnyFlatSpec with should.Matchers {
 
     birthdayGreetings.sendGreetings()
 
-    emailGateway.sentEmailToAddress("john.doe@foobar.com") shouldBe true
+    emailGateway.emailSentToAddress("john.doe@foobar.com") shouldBe true
   }
 
   "The greeting sender " should "send one email to the specified friend" in {
@@ -40,7 +40,7 @@ class BirthdayGreetingFacadeTest extends AnyFlatSpec with should.Matchers {
 
     birthdayGreetings.sendGreetings()
 
-    emailGateway.sentEmailWithText(
+    emailGateway.emailSentWithText(
       """
         |Subject: Happy birthday!
         |
@@ -63,7 +63,7 @@ class BirthdayGreetingFacadeTest extends AnyFlatSpec with should.Matchers {
 
     birthdayGreetings.sendGreetings()
 
-    emailGateway.sentEmailTo("Alan", "Roby") shouldBe true
+    emailGateway.emailSentTo("Alan", "Roby") shouldBe true
   }
 
   /***
@@ -81,7 +81,7 @@ class BirthdayGreetingFacadeTest extends AnyFlatSpec with should.Matchers {
 
     birthdayGreetings.sendGreetings()
 
-    emailGateway.sentEmailTo("Alan", "John") shouldBe true
+    emailGateway.emailSentTo("Alan", "John") shouldBe true
   }
 
   "The greeting sender " should "not send an email on 28th Feb in leap years" in {
@@ -96,6 +96,6 @@ class BirthdayGreetingFacadeTest extends AnyFlatSpec with should.Matchers {
 
     birthdayGreetings.sendGreetings()
 
-    emailGateway.sentEmailTo("John") shouldBe true
+    emailGateway.emailSentTo("John") shouldBe true
   }
 }
