@@ -60,9 +60,7 @@ case class BirthdaySingleRemainderEmail(toFriend: Friend, birthdayFriends: Seq[F
   override val sentTo: String = toFriend.firstName
   override val address: EmailAddress = toFriend.emailAddress
   override val text: String = {
-    val otherFriendFullNames: String = {
-      ""
-    }
+  val otherFriendFullNames: String = birthdayFriends(0).fullName
 
     textTemplate
       .replace("<first_name>", sentTo)

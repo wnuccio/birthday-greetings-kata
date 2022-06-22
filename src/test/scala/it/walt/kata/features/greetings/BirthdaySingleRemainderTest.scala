@@ -31,6 +31,15 @@ class BirthdaySingleRemainderTest extends AnyFlatSpec with should.Matchers {
 
     emailGateway.emailSent() shouldBe 1
     emailGateway.singleRemainderSentTo("Mary", about("John Doe"), about("Walt Nuc")) shouldBe true
+    emailGateway.emailSentWithText(
+      """
+        |Subject: Birthday Remainder!
+        |
+        | Dear Mary,
+        |
+        | Today is John Doe's birthday.
+        | Don't forget to send him a message !
+        |""".stripMargin) shouldBe true
   }
 
   ignore should "send four remainders" in {
