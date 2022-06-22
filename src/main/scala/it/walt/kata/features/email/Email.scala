@@ -24,7 +24,7 @@ class HappyBirthdayEmail(toFriend: Friend) extends Email {
   override val text: String = textTemplate.replace("<first_name>", sentTo)
 }
 
-class BirthdayRemainderEmail(toFriend: Friend, birthdayFriend: Friend) extends Email {
+case class BirthdayRemainderEmail(toFriend: Friend, birthdayFriend: Friend) extends Email {
 
   private lazy val textTemplate: String =
     """
