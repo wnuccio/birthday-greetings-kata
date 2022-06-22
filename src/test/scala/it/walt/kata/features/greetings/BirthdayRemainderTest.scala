@@ -1,7 +1,7 @@
 package it.walt.kata.features.greetings
 
 import it.walt.kata.features.date.Date
-import it.walt.kata.features.email.{EmailAddress, EmailGatewayMock, EmailSender}
+import it.walt.kata.features.email.{EmailGatewayMock, EmailSender}
 import it.walt.kata.features.greetings.FriendForTest.{friend, friendRepository}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should
@@ -31,9 +31,8 @@ class BirthdayRemainderTest extends AnyFlatSpec with should.Matchers {
 
     birthdayGreetings.sendRemainders()
 
-    emailGateway.emails.size shouldBe 1
-    emailGateway.emails.head.address shouldBe EmailAddress("mary.ann@foobar.com")
-    emailGateway.emails.head.text shouldBe
+    emailGateway.sentEmailToAddress("mary.ann@foobar.com") shouldBe true
+    emailGateway.sentEmailWithText(
       """
         |Subject: Birthday Remainder!
         |
@@ -41,6 +40,6 @@ class BirthdayRemainderTest extends AnyFlatSpec with should.Matchers {
         |
         | Today is John Doe's birthday.
         | Don't forget to send him a message !
-        |""".stripMargin
+        |""".stripMargin) shouldBe true
   }
 }
