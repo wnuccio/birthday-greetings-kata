@@ -1,7 +1,7 @@
 package it.walt.kata.features.greetings
 
 import it.walt.kata.features.date.Date
-import it.walt.kata.features.email.{EmailGatewayMock, EmailSender}
+import it.walt.kata.features.email.{EmailGateway, EmailGatewayMock, EmailSender}
 import it.walt.kata.features.greetings.FriendForTest.{friend, friendRepository}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should
@@ -17,15 +17,14 @@ import org.scalatest.matchers.should
 class BirthdaySingleRemainderTest extends AnyFlatSpec with should.Matchers {
 
   "The greeting sender" should "send one remainder for two birthdays" in {
-    val clock = ClockStub.today(Date("2022/06/15"))
-    val friends: Seq[Friend] = Seq(
+    val today = "2022/06/15"
+    val friends = Seq(
       friend("John Doe",  "1980/06/15", "john.doe@foobar.com"),
       friend("Mary Ann",  "1985/07/16", "mary.ann@foobar.com"),
       friend("Walt Nuc",  "1975/06/15", "walt.nuc@foobar.com"),
     )
     val emailGateway = new EmailGatewayMock()
-    val emailSender = new EmailSender(emailGateway)
-    val birthdayGreetings = new BirthdayGreetingsFacade(friendRepository(friends), clock, emailSender)
+    val birthdayGreetings = createGreetingsFacade(today, friends, emailGateway)
 
     birthdayGreetings.sendSingleRemainders()
 
@@ -43,7 +42,7 @@ class BirthdaySingleRemainderTest extends AnyFlatSpec with should.Matchers {
   }
 
   "The greeting sender" should "send one remainder for three birthdays" in {
-    val clock = ClockStub.today(Date("2022/06/15"))
+    val today = "2022/06/15"
     val friends: Seq[Friend] = Seq(
       friend("Mary Ann",  "1985/07/16"),
       friend("John Doe",  "1980/06/15"),
@@ -51,9 +50,7 @@ class BirthdaySingleRemainderTest extends AnyFlatSpec with should.Matchers {
       friend("Roby Ron",  "1981/06/15"),
     )
     val emailGateway = new EmailGatewayMock()
-    val emailSender = new EmailSender(emailGateway)
-    val birthdayGreetings = new BirthdayGreetingsFacade(friendRepository(friends), clock, emailSender)
-
+    val birthdayGreetings = createGreetingsFacade(today, friends, emailGateway)
     birthdayGreetings.sendSingleRemainders()
 
     emailGateway.emailSent() shouldBe 1
@@ -71,6 +68,7 @@ class BirthdaySingleRemainderTest extends AnyFlatSpec with should.Matchers {
   }
 
   "The greeting sender" should "send four remainders" in {
+    val today = "2022/06/15"
     val clock = ClockStub.today(Date("2022/06/15"))
     val friends: Seq[Friend] = Seq(
       friend("John Doe",  "1980/06/15", "john.doe@foobar.com"),
@@ -79,14 +77,19 @@ class BirthdaySingleRemainderTest extends AnyFlatSpec with should.Matchers {
       friend("Walt Nuc",  "1975/06/15", "john.doe@foobar.com"),
     )
     val emailGateway = new EmailGatewayMock()
-    val emailSender = new EmailSender(emailGateway)
-    val birthdayGreetings = new BirthdayGreetingsFacade(friendRepository(friends), clock, emailSender)
 
+    val birthdayGreetings = createGreetingsFacade(today, friends, emailGateway)
     birthdayGreetings.sendSingleRemainders()
 
     emailGateway.emailSent() shouldBe 2
     emailGateway.singleRemainderSentTo("Mary", about("John Doe"), about("Walt Nuc")) shouldBe true
     emailGateway.singleRemainderSentTo("Roby", about("John Doe"), about("Walt Nuc")) shouldBe true
+  }
+
+  private def createGreetingsFacade(today: String, friends: Seq[Friend], emailGateway: EmailGateway): BirthdayGreetingsFacade = {
+    val clock = ClockStub.today(Date(today))
+    val emailSender = new EmailSender(emailGateway)
+    new BirthdayGreetingsFacade(friendRepository(friends), clock, emailSender)
   }
 
   private def about(name: String): String = name
