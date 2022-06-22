@@ -8,11 +8,11 @@ import org.scalatest.matchers.should
 
 /***
  * Test case list:
- * - four friends -> four remainders
  *
  * Done
  * - two friends -> one remainder
  * - three friends -> two remainders, one for both of other friends
+ * - four friends -> four remainders
  */
 
 class BirthdayRemainderTest extends AnyFlatSpec with should.Matchers {
