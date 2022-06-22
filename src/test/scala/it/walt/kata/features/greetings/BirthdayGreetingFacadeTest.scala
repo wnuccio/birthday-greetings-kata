@@ -1,7 +1,7 @@
 package it.walt.kata.features.greetings
 
 import it.walt.kata.features.date.Date
-import it.walt.kata.features.email.{EmailAddress, EmailGatewayMock, EmailSender}
+import it.walt.kata.features.email.{EmailGatewayMock, EmailSender}
 import it.walt.kata.features.greetings.FriendForTest.{friend, friendRepository}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should
@@ -28,8 +28,7 @@ class BirthdayGreetingFacadeTest extends AnyFlatSpec with should.Matchers {
 
     birthdayGreetings.sendGreetings()
 
-    emailGateway.emails.size shouldBe 1
-    emailGateway.emails.head.address shouldBe EmailAddress("john.doe@foobar.com")
+    emailGateway.sentEmailToAddress("john.doe@foobar.com") shouldBe true
   }
 
   "The greeting sender " should "send one email to the specified friend" in {
@@ -41,13 +40,13 @@ class BirthdayGreetingFacadeTest extends AnyFlatSpec with should.Matchers {
 
     birthdayGreetings.sendGreetings()
 
-    emailGateway.emails.size shouldBe 1
-    emailGateway.emails.head.text shouldBe
+    emailGateway.sentEmailWithText(
       """
         |Subject: Happy birthday!
         |
         | Happy birthday, dear John!
         |""".stripMargin
+    ) shouldBe true
   }
 
   "The greeting sender " should "send no email if today is not a birthday" in {
@@ -64,10 +63,7 @@ class BirthdayGreetingFacadeTest extends AnyFlatSpec with should.Matchers {
 
     birthdayGreetings.sendGreetings()
 
-    emailGateway.emails.size shouldBe 2
-    val mailsSentTo = emailGateway.emails.map(_.sentTo)
-    mailsSentTo should contain("Alan")
-    mailsSentTo should contain("Roby")
+    emailGateway.sentEmailTo("Alan", "Roby") shouldBe true
   }
 
   /***
@@ -85,9 +81,7 @@ class BirthdayGreetingFacadeTest extends AnyFlatSpec with should.Matchers {
 
     birthdayGreetings.sendGreetings()
 
-    val mailsSentTo = emailGateway.emails.map(_.sentTo)
-    mailsSentTo should contain("John")
-    mailsSentTo should contain("Alan")
+    emailGateway.sentEmailTo("Alan", "John") shouldBe true
   }
 
   "The greeting sender " should "not send an email on 28th Feb in leap years" in {
@@ -102,8 +96,6 @@ class BirthdayGreetingFacadeTest extends AnyFlatSpec with should.Matchers {
 
     birthdayGreetings.sendGreetings()
 
-    emailGateway.emails.size shouldBe 1
-    val mailsSentTo = emailGateway.emails.map(_.sentTo)
-    mailsSentTo should contain("John")
+    emailGateway.sentEmailTo("John") shouldBe true
   }
 }
