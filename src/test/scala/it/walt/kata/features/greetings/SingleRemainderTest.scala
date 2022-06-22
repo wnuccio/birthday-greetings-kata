@@ -12,8 +12,8 @@ class SingleRemainderTest extends AnyFlatSpec with should.Matchers {
   "The greeting sender" should "send one remainder for one birthdays" in {
     val today = "2022/06/15"
     val friends = Seq(
-      friend("John Doe",  "1980/06/15", "john.doe@foobar.com"),
-      friend("Mary Ann",  "1985/07/16", "mary.ann@foobar.com"),
+      friend("John Doe",  "1980/06/15"),
+      friend("Mary Ann",  "1985/07/16"),
     )
     val emailGateway = new EmailGatewayMock()
     val birthdayGreetings = createGreetingsFacade(today, friends, emailGateway)
@@ -36,9 +36,9 @@ class SingleRemainderTest extends AnyFlatSpec with should.Matchers {
   "The greeting sender" should "send one remainder for two birthdays" in {
     val today = "2022/06/15"
     val friends = Seq(
-      friend("John Doe",  "1980/06/15", "john.doe@foobar.com"),
-      friend("Mary Ann",  "1985/07/16", "mary.ann@foobar.com"),
-      friend("Walt Nuc",  "1975/06/15", "walt.nuc@foobar.com"),
+      friend("John Doe",  "1980/06/15"),
+      friend("Mary Ann",  "1985/07/16"),
+      friend("Walt Nuc",  "1975/06/15"),
     )
     val emailGateway = new EmailGatewayMock()
     val birthdayGreetings = createGreetingsFacade(today, friends, emailGateway)
@@ -88,10 +88,10 @@ class SingleRemainderTest extends AnyFlatSpec with should.Matchers {
     val today = "2022/06/15"
     val clock = ClockStub.today(Date("2022/06/15"))
     val friends: Seq[Friend] = Seq(
-      friend("John Doe",  "1980/06/15", "john.doe@foobar.com"),
-      friend("Mary Ann",  "1985/07/16", "mary.ann@foobar.com"),
-      friend("Roby Ron",  "1990/07/17", "roby.ron@foobar.com"),
-      friend("Walt Nuc",  "1975/06/15", "john.doe@foobar.com"),
+      friend("John Doe",  "1980/06/15"),
+      friend("Mary Ann",  "1985/07/16"),
+      friend("Roby Ron",  "1990/07/17"),
+      friend("Walt Nuc",  "1975/06/15"),
     )
     val emailGateway = new EmailGatewayMock()
 
