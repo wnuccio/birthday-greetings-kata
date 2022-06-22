@@ -35,4 +35,21 @@ class EmailGatewayMock() extends EmailGateway {
     birthdays.sorted == namesInEmails.sorted
   }
 
+  def sentRemaindersTo(sentTo: Seq[String], birthdays: Seq[String]): Boolean = {
+    require(emails.size == sentTo.size * birthdays.size)
+
+    val namesInEmails: Seq[(String, String)] = emails.map {
+      case BirthdayRemainderEmail(friend, birthdayFriend) => (friend.firstName, birthdayFriend.firstName)
+    }
+
+    val expectedNames = for (
+      friendName <- sentTo;
+      birthdayName <- birthdays
+    ) yield {
+      (friendName, birthdayName)
+    }
+
+    namesInEmails.sorted == expectedNames.sorted
+  }
+
 }
