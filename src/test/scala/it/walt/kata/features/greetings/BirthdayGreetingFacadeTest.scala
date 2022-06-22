@@ -26,7 +26,7 @@ class BirthdayGreetingFacadeTest extends AnyFlatSpec with should.Matchers {
     val clock = ClockStub.today(Date("2022/06/15"))
     val birthdayGreetings = new BirthdayGreetingsFacade(friendRepository(friends), clock, emailSender)
 
-    birthdayGreetings.sendGreetings()
+    birthdayGreetings.sendHappyBirthdays()
 
     emailGateway.emailSentToAddress("john.doe@foobar.com") shouldBe true
   }
@@ -38,7 +38,7 @@ class BirthdayGreetingFacadeTest extends AnyFlatSpec with should.Matchers {
     val clock = ClockStub.today(Date("2022/06/15"))
     val birthdayGreetings = new BirthdayGreetingsFacade(friendRepository(friends), clock, emailSender)
 
-    birthdayGreetings.sendGreetings()
+    birthdayGreetings.sendHappyBirthdays()
 
     emailGateway.emailSentWithText(
       """
@@ -61,7 +61,7 @@ class BirthdayGreetingFacadeTest extends AnyFlatSpec with should.Matchers {
     val clock = ClockStub.today(Date("2022/06/15"))
     val birthdayGreetings = new BirthdayGreetingsFacade(friendRepository(friends), clock, emailSender)
 
-    birthdayGreetings.sendGreetings()
+    birthdayGreetings.sendHappyBirthdays()
 
     emailGateway.emailSentTo("Alan", "Roby") shouldBe true
   }
@@ -79,7 +79,7 @@ class BirthdayGreetingFacadeTest extends AnyFlatSpec with should.Matchers {
     val emailSender = new EmailSender(emailGateway)
     val birthdayGreetings = new BirthdayGreetingsFacade(friendRepository(friends), clock, emailSender)
 
-    birthdayGreetings.sendGreetings()
+    birthdayGreetings.sendHappyBirthdays()
 
     emailGateway.emailSentTo("Alan", "John") shouldBe true
   }
@@ -94,7 +94,7 @@ class BirthdayGreetingFacadeTest extends AnyFlatSpec with should.Matchers {
     val emailSender = new EmailSender(emailGateway)
     val birthdayGreetings = new BirthdayGreetingsFacade(friendRepository(friends), clock, emailSender)
 
-    birthdayGreetings.sendGreetings()
+    birthdayGreetings.sendHappyBirthdays()
 
     emailGateway.emailSentTo("John") shouldBe true
   }

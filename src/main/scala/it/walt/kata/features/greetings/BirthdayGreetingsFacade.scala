@@ -4,9 +4,9 @@ import it.walt.kata.features.date.Clock
 
 class BirthdayGreetingsFacade(friendRepository: FriendRepository, clock: Clock, greetingsSender: GreetingsSender) {
 
-  def sendGreetings(): Unit =
+  def sendHappyBirthdays(): Unit =
     for (friend <- birthdayFriends)
-      yield greetingsSender.sendGreetingsTo(friend)
+      yield greetingsSender.sendHappyBirthdayTo(friend)
 
   def sendRemainders(): Unit =
     for (

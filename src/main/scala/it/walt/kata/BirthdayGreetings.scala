@@ -8,6 +8,6 @@ object BirthdayGreetings {
     val config = if (args.length != 3) new RealConfig() else new TestConfig(args)
 
     val greetingsFacade = config.greetingsFacade
-    greetingsFacade.sendGreetings()
+    greetingsFacade.sendHappyBirthdays()
   }
 }

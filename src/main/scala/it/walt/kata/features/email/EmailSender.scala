@@ -4,13 +4,13 @@ import it.walt.kata.features.greetings.{Friend, GreetingsSender}
 
 class EmailSender(emailGateway: EmailGateway) extends GreetingsSender {
 
-  final override def sendGreetingsTo(friend: Friend): Unit = {
+  final override def sendHappyBirthdayTo(friend: Friend): Unit = {
     val email = new HappyBirthdayEmail(friend)
     emailGateway.sendEmail(email)
   }
 
   override def sendRemainderTo(friend: Friend, birthdayFriend: Friend): Unit = {
-    val email = new BirthdayRemainderEmail(friend, birthdayFriend)
+    val email = BirthdayRemainderEmail(friend, birthdayFriend)
     emailGateway.sendEmail(email)
   }
 }
