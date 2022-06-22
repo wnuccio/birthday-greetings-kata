@@ -15,7 +15,7 @@ import org.scalatest.matchers.should
  * Done
  */
 
-class BirthdaySingleRemainderTest extends AnyFlatSpec with should.Matchers {
+class SingleRemainderTest extends AnyFlatSpec with should.Matchers {
 
   "The greeting sender" should "send one remainder for one birthdays" in {
     val today = "2022/06/15"
