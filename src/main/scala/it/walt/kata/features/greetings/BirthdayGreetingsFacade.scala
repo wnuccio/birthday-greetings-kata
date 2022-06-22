@@ -4,6 +4,7 @@ import it.walt.kata.features.date.Clock
 
 class BirthdayGreetingsFacade(friendRepository: FriendRepository, clock: Clock, greetingsSender: GreetingsSender) {
 
+
   def sendHappyBirthdays(): Unit =
     for (friend <- birthdayFriends)
       yield greetingsSender.sendHappyBirthdayTo(friend)
@@ -14,6 +15,11 @@ class BirthdayGreetingsFacade(friendRepository: FriendRepository, clock: Clock, 
       birthdayFriend <- birthdayFriends
     )
     yield greetingsSender.sendRemainderTo(otherFriend, birthdayFriend)
+
+  def sendSingleRemainders(): Unit = {
+    for(otherFriend <- otherFriends)
+      greetingsSender.sendSingleRemainderTo(otherFriend, birthdayFriends)
+  }
 
   private lazy val birthdayFriends: Seq[Friend] =
     for (friend <- friendRepository.allFriends if friend.isBirthdate(clock.today))

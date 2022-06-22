@@ -5,6 +5,7 @@ import it.walt.kata.features.email.EmailAddress
 import java.time.LocalDate
 
 case class Friend(firstName: String, lastName: String, birthdate: LocalDate, emailAddress: EmailAddress) {
+  val fullName: String = s"$firstName $lastName"
 
   def isBirthdate(today: LocalDate): Boolean = {
     isRegularBirthdate(today) || isBirthdateForLeapYears(today)

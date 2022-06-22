@@ -42,7 +42,32 @@ case class BirthdayRemainderEmail(toFriend: Friend, birthdayFriend: Friend) exte
   override val text: String = textTemplate
     .replace("<first_name>", sentTo)
     .replace("<other_friend>", s"${birthdayFriend.firstName} ${birthdayFriend.lastName}")
+}
 
+case class BirthdaySingleRemainderEmail(toFriend: Friend, birthdayFriends: Seq[Friend]) extends Email {
+
+  private lazy val textTemplate: String =
+    """
+      |Subject: Birthday Remainder!
+      |
+      | Dear <first_name>,
+      |
+      | Today is <other_friends_full_names>'s birthday.
+      | Don't forget to send him a message !
+      |""".stripMargin
+
+  override val typetext: String = "birthday single remainder "
+  override val sentTo: String = toFriend.firstName
+  override val address: EmailAddress = toFriend.emailAddress
+  override val text: String = {
+    val otherFriendFullNames: String = {
+      ""
+    }
+
+    textTemplate
+      .replace("<first_name>", sentTo)
+      .replace("<other_friends_full_names>", otherFriendFullNames)
+  }
 }
 
 
