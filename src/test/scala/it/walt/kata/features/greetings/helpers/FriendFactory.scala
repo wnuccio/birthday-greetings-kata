@@ -4,7 +4,7 @@ import it.walt.kata.features.date.Date
 import it.walt.kata.features.email.EmailAddress
 import it.walt.kata.features.greetings.{Friend, FriendRepository}
 
-object FriendForTest {
+object FriendFactory {
   def friend(name: String, birthdate: String, email: String): Friend = {
     val nameSplit = name.split(' ')
     val firstName = nameSplit(0)

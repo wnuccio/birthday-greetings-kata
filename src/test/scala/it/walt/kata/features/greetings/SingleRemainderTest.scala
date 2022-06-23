@@ -4,7 +4,7 @@ import it.walt.kata.features.date.Date
 import it.walt.kata.features.email.EmailGatewayMock
 import it.walt.kata.features.greetings.helpers.BirthdayGreetingsFacadeFactory.createGreetingsFacade
 import it.walt.kata.features.greetings.helpers.ClockStub
-import it.walt.kata.features.greetings.helpers.FriendForTest.friend
+import it.walt.kata.features.greetings.helpers.FriendFactory.friend
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should
 
