@@ -51,11 +51,8 @@ class HappyBirthdayTest extends AnyFlatSpec with should.Matchers {
     emailGateway.emailSentTo("Alan", "Roby") shouldBe true
   }
 
-  /***
-   * 2400 is a leap year, 2401 is not
-   */
   "The greeting sender " should "send a happy birthday on 28th Feb for persons born on 29th and non-leap years" in {
-    val today = "2401/02/28"
+    val today = "2401/02/28" // 2401 is a non-leap year
     val friends = Seq(
       friend("John", "2000/02/28"),
       friend("Alan", "2000/02/29"),
@@ -69,7 +66,7 @@ class HappyBirthdayTest extends AnyFlatSpec with should.Matchers {
   }
 
   "The greeting sender " should "not send a happy birthday on 28th Feb in leap years" in {
-    val today = "2400/02/28"
+    val today = "2400/02/28" // 2400 is a non-leap year
     val friends = Seq(
       friend("John", "2000/02/28"),
       friend("Alan", "2000/02/29"),
