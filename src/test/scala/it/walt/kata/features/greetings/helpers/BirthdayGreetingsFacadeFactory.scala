@@ -6,6 +6,10 @@ import it.walt.kata.features.greetings.helpers.FriendForTest.friendRepository
 import it.walt.kata.features.greetings.{BirthdayGreetingsFacade, Friend}
 
 object BirthdayGreetingsFacadeFactory {
+  def createGreetingsFacade(today: String, friend: Friend, emailGateway: EmailGateway): BirthdayGreetingsFacade = {
+    createGreetingsFacade(today, Seq(friend), emailGateway)
+  }
+
   def createGreetingsFacade(today: String, friends: Seq[Friend], emailGateway: EmailGateway): BirthdayGreetingsFacade = {
     val clock = ClockStub.today(Date(today))
     val emailSender = new EmailSender(emailGateway)
