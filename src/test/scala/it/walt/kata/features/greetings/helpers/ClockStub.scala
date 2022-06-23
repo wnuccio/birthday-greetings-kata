@@ -1,4 +1,4 @@
-package it.walt.kata.features.greetings
+package it.walt.kata.features.greetings.helpers
 
 import it.walt.kata.features.date.Clock
 

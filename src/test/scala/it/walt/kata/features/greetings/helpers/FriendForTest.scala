@@ -1,7 +1,8 @@
-package it.walt.kata.features.greetings
+package it.walt.kata.features.greetings.helpers
 
 import it.walt.kata.features.date.Date
 import it.walt.kata.features.email.EmailAddress
+import it.walt.kata.features.greetings.{Friend, FriendRepository}
 
 object FriendForTest {
   def friend(name: String, birthdate: String, email: String): Friend = {

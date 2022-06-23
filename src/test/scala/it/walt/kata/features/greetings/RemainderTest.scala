@@ -1,8 +1,8 @@
 package it.walt.kata.features.greetings
 
 import it.walt.kata.features.email.EmailGatewayMock
-import it.walt.kata.features.greetings.BirthdayGreetingsFacadeFactory.createGreetingsFacade
-import it.walt.kata.features.greetings.FriendForTest.friend
+import it.walt.kata.features.greetings.helpers.BirthdayGreetingsFacadeFactory.createGreetingsFacade
+import it.walt.kata.features.greetings.helpers.FriendForTest.friend
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should
 

@@ -1,7 +1,7 @@
 package it.walt.kata.infrastructure
 
 import it.walt.kata.features.greetings.Friend
-import it.walt.kata.features.greetings.FriendForTest.friend
+import it.walt.kata.features.greetings.helpers.FriendForTest.friend
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should
 
