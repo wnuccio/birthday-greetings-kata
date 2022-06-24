@@ -1,3 +1,3 @@
 # birthday-greetings-kata
 
-Ref.: https://codingdojo.org/kata/birthday-greetings/
+Ref.: [Birthday Kata](https://codingdojo.org/kata/birthday-greetings/)
