@@ -14,7 +14,7 @@ class FriendsFileTest extends AnyFlatSpec with should.Matchers {
 
     friends.size shouldBe 3
     friends should contain(friend("John Doe", "1982/10/08", "john.doe@foobar.com"))
-    friends should contain(friend("Mary Ann", "1975/09/11", "mary.ann@foobar.com"))
+    friends should contain(friend("Mary Ann", "1990/09/11", "mary.ann@foobar.com"))
     friends should contain(friend("Walt Nuc", "1982/09/11", "walt.nuc@foobar.com"))
   }
 

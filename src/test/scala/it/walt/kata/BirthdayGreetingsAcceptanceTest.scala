@@ -9,10 +9,10 @@ import scala.jdk.CollectionConverters._
 class BirthdayGreetingsAcceptanceTest extends AnyFlatSpec with should.Matchers {
 
   "The app" should "read a file of friends and send an email for each birthday" in {
-    val output = Paths.get("src/main/resources/test/emails.txt")
+    val output = Paths.get("src/test/resources/emails.txt")
     Files.deleteIfExists(output)
 
-    BirthdayGreetings.main(Array[String]("friends.txt", "clock.txt", "test/emails.txt"))
+    BirthdayGreetings.main(Array[String]("friends.txt", "clock.txt", "emails.txt"))
 
     Files.exists(output) shouldBe true
     val lines = Files.readAllLines(output).asScala
