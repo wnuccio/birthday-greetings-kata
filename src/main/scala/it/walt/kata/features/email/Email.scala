@@ -3,7 +3,6 @@ package it.walt.kata.features.email
 import it.walt.kata.features.greetings.Friend
 
 sealed trait Email {
-  def typetext: String
   def sentTo: String
   def address: EmailAddress
   def text: String
@@ -17,7 +16,6 @@ case class HappyBirthdayEmail(toFriend: Friend) extends Email {
       | Happy birthday, dear <first_name>!
       |""".stripMargin
 
-  override val typetext: String      = "happy birthday"
   override val sentTo: String        = toFriend.firstName
   override val address: EmailAddress = toFriend.emailAddress
   override val text: String          = textTemplate.replace("<first_name>", sentTo)
@@ -34,7 +32,6 @@ case class BirthdayRemainderEmail(toFriend: Friend, birthdayFriend: Friend) exte
       | Don't forget to send him a message !
       |""".stripMargin
 
-  override val typetext: String      = "birthday remainder "
   override val sentTo: String        = toFriend.firstName
   override val address: EmailAddress = toFriend.emailAddress
   override val text: String          = textTemplate
@@ -53,7 +50,6 @@ case class BirthdaySingleRemainderEmail(toFriend: Friend, birthdayFriends: Seq[F
       | Don't forget to send him a message !
       |""".stripMargin
 
-  override val typetext: String      = "birthday single remainder "
   override val sentTo: String        = toFriend.firstName
   override val address: EmailAddress = toFriend.emailAddress
   override lazy val text: String = {
