@@ -2,13 +2,13 @@ package it.walt.kata.features.email
 
 import it.walt.kata.features.greetings.Friend
 
-sealed trait Email {
-  def sentTo: String
+sealed abstract class Email(toFriend: Friend) {
+  val sentTo: String = toFriend.firstName
   def address: EmailAddress
   def text: String
 }
 
-case class HappyBirthdayEmail(toFriend: Friend) extends Email {
+case class HappyBirthdayEmail(toFriend: Friend) extends Email(toFriend) {
   private lazy val textTemplate: String =
     """
       |Subject: Happy birthday!
@@ -16,12 +16,11 @@ case class HappyBirthdayEmail(toFriend: Friend) extends Email {
       | Happy birthday, dear <first_name>!
       |""".stripMargin
 
-  override val sentTo: String        = toFriend.firstName
   override val address: EmailAddress = toFriend.emailAddress
   override val text: String          = textTemplate.replace("<first_name>", sentTo)
 }
 
-case class BirthdayRemainderEmail(toFriend: Friend, birthdayFriend: Friend) extends Email {
+case class BirthdayRemainderEmail(toFriend: Friend, birthdayFriend: Friend) extends Email(toFriend) {
   private lazy val textTemplate: String =
     """
       |Subject: Birthday Remainder!
@@ -32,14 +31,13 @@ case class BirthdayRemainderEmail(toFriend: Friend, birthdayFriend: Friend) exte
       | Don't forget to send him a message !
       |""".stripMargin
 
-  override val sentTo: String        = toFriend.firstName
   override val address: EmailAddress = toFriend.emailAddress
   override val text: String          = textTemplate
     .replace("<first_name>", sentTo)
     .replace("<other_friend>", s"${birthdayFriend.firstName} ${birthdayFriend.lastName}")
 }
 
-case class BirthdaySingleRemainderEmail(toFriend: Friend, birthdayFriends: Seq[Friend]) extends Email {
+case class BirthdaySingleRemainderEmail(toFriend: Friend, birthdayFriends: Seq[Friend]) extends Email(toFriend) {
   private lazy val textTemplate: String =
     """
       |Subject: Birthday Remainder!
@@ -50,7 +48,6 @@ case class BirthdaySingleRemainderEmail(toFriend: Friend, birthdayFriends: Seq[F
       | Don't forget to send him a message !
       |""".stripMargin
 
-  override val sentTo: String        = toFriend.firstName
   override val address: EmailAddress = toFriend.emailAddress
   override lazy val text: String = {
     def otherFriendFullNames(): String = {
