@@ -1,11 +1,11 @@
 package it.walt.kata.features.email
 
-import it.walt.kata.features.greetings.{Friend, GreetingsSender}
+import it.walt.kata.features.greetings.{ Friend, GreetingsSender }
 
 class EmailSender(emailGateway: EmailGateway) extends GreetingsSender {
 
   final override def sendHappyBirthdayTo(friend: Friend): Unit = {
-    val email = new HappyBirthdayEmail(friend)
+    val email = HappyBirthdayEmail(friend)
     emailGateway.sendEmail(email)
   }
 
