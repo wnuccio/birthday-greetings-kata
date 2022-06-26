@@ -7,7 +7,7 @@ import java.nio.file.Files
 
 class WriteEmailOnFile(outputFile: String) extends EmailGateway {
   lazy val writer: FileWriter = {
-    val file   = new File(s"src/test/resources/$outputFile")
+    val file   = new File(outputFile)
     Files.deleteIfExists(file.toPath)
     Files.createFile(file.toPath)
     val writer = new FileWriter(file)
