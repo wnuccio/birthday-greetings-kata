@@ -3,8 +3,8 @@ package it.walt.kata.features.email
 import it.walt.kata.features.greetings.Friend
 
 sealed abstract class Email(toFriend: Friend) {
-  val sentTo: String = toFriend.firstName
-  def address: EmailAddress
+  final val sentTo: String        = toFriend.firstName
+  final val address: EmailAddress = toFriend.emailAddress
   def text: String
 }
 
@@ -16,8 +16,7 @@ case class HappyBirthdayEmail(toFriend: Friend) extends Email(toFriend) {
       | Happy birthday, dear <first_name>!
       |""".stripMargin
 
-  override val address: EmailAddress = toFriend.emailAddress
-  override val text: String          = textTemplate.replace("<first_name>", sentTo)
+  override val text: String = textTemplate.replace("<first_name>", sentTo)
 }
 
 case class BirthdayRemainderEmail(toFriend: Friend, birthdayFriend: Friend) extends Email(toFriend) {
@@ -31,8 +30,7 @@ case class BirthdayRemainderEmail(toFriend: Friend, birthdayFriend: Friend) exte
       | Don't forget to send him a message !
       |""".stripMargin
 
-  override val address: EmailAddress = toFriend.emailAddress
-  override val text: String          = textTemplate
+  override val text: String = textTemplate
     .replace("<first_name>", sentTo)
     .replace("<other_friend>", s"${birthdayFriend.firstName} ${birthdayFriend.lastName}")
 }
@@ -48,7 +46,6 @@ case class BirthdaySingleRemainderEmail(toFriend: Friend, birthdayFriends: Seq[F
       | Don't forget to send him a message !
       |""".stripMargin
 
-  override val address: EmailAddress = toFriend.emailAddress
   override lazy val text: String = {
     def otherFriendFullNames(): String = {
       if (birthdayFriends.size == 1) return birthdayFriends.head.fullName
