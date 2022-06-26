@@ -7,5 +7,6 @@ ThisBuild / scalaVersion := "2.13.8"
 lazy val root = (project in file("."))
   .settings(
     name := "birthday-greetings",
-    libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.12" % "test",
+//    scalacOptions ++= Seq("-Xfatal-warnings"),
+    libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.12" % "test"
   )

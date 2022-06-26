@@ -3,7 +3,7 @@ package it.walt.kata
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should
 
-import java.nio.file.{Files, Paths}
+import java.nio.file.{ Files, Paths }
 import scala.jdk.CollectionConverters._
 
 class BirthdayGreetingsAcceptanceTest extends AnyFlatSpec with should.Matchers {
@@ -12,7 +12,7 @@ class BirthdayGreetingsAcceptanceTest extends AnyFlatSpec with should.Matchers {
     val output = Paths.get("src/main/resources/test/emails.txt")
     Files.deleteIfExists(output)
 
-    BirthdayGreetings.main(Array[String]("test/friends.txt", "test/clock.txt", "test/emails.txt"))
+    BirthdayGreetings.main(Array[String]("friends.txt", "clock.txt", "test/emails.txt"))
 
     Files.exists(output) shouldBe true
     val lines = Files.readAllLines(output).asScala
